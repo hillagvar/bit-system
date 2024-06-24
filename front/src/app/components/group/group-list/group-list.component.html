@@ -1,0 +1,32 @@
+<div class="card mt-4" *ngIf="!isError">
+    <div class="card-header">Grupių sąrašas</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Pavadinimas</th>
+                    <th>Pradžia</th>
+                    <th>Pabaiga</th>
+                    <th>Dėstytojas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let group of groups; let i = index;">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ group.name }}</td>
+                    <td>{{ group.start }}</td>
+                    <td>{{ group.end }}</td>
+                    <td>{{ group.lecturerName }} {{ group.lecturerSurname }}</td>
+
+                    <td>
+                        <a class="btn btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
+                        <a class="btn btn-secondary mb-1" *ngIf="authService.canEdit()">Redaguoti</a> &nbsp;
+                        <button class="btn btn-danger mb-1" *ngIf="authService.canEdit()">Ištrinti</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

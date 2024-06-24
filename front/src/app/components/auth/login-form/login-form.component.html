@@ -1,0 +1,25 @@
+<div class="row mt-3">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary mx-3 mt-3" routerLink="/">Prisijungimas</a>
+                <a class="btn btn-outline-primary mx-3 mt-3" routerLink="/signup">Registracija</a>
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onLogin(f)" #f="ngForm">
+                    <div class="mb-3">
+                        <label for="" class="form-label">El.pašto adresas</label>
+                        <input type="email" name="email" class="form-control" ngModel required minLength="5" maxLength="64" email>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Slaptažodis</label>
+                        <input type="password" name="password" class="form-control" ngModel required>
+                    </div>
+
+                    <button class="btn btn-primary">Prisijungti</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

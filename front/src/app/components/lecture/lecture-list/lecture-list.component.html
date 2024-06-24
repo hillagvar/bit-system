@@ -1,0 +1,29 @@
+<div class="card mt-4" *ngIf="!isError">
+    <div class="card-header">Paskaitų sąrašas</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Pavadinimas</th>
+                    <th>Data</th>
+                    <th>Aprašymas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lecture of lectures; let i = index;">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ lecture.name }}</td>
+                    <td>{{ lecture.date }}</td>
+                    <td>{{ lecture.description }}</td>
+                    <td>
+                        <button class="btn btn-secondary mb-1">Žiūrėti failus</button> &nbsp;
+                        <a class="btn btn-secondary mb-1" *ngIf="authService.canEdit()">Redaguoti</a> &nbsp;
+                        <button class="btn btn-danger mb-1" *ngIf="authService.canEdit()">Ištrinti</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

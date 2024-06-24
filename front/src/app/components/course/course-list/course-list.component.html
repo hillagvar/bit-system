@@ -1,0 +1,25 @@
+<div class="card mt-4">
+    <div class="card-header">Kursų sąrašas</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Pavadinimas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of courses; let i = index;">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>
+                        <a class="btn btn-secondary mb-1" [routerLink]="['/courses', course.id, 'groups']">Žiūrėti grupes</a> &nbsp;
+                        <a class="btn btn-secondary mb-1">Redaguoti</a> &nbsp;
+                        <button class="btn btn-danger mb-1">Ištrinti</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
