@@ -19,9 +19,9 @@ export class SignupFormComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   public onSignUp (f: NgForm) {
-    console.log(f.form.value);
+    
     this.authService.registerUser(f.form.value).subscribe((data)=> {
-      console.log(data);
+      
       f.reset();
       this.onSignUpSuccess = true;
       setTimeout(() => {

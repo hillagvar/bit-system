@@ -10,6 +10,7 @@ export class AuthController {
         const surname = req.body.surname;
         const phone = req.body.phone;
         const email = req.body.email;
+        const type = 1;
         let password: string = req.body.password;
 
          password = await bcrypt.hash(password, 12);
@@ -25,8 +26,8 @@ export class AuthController {
             })
         }
 
-        sql = "INSERT INTO users (name, surname, email, phone, password) VALUES (?, ?, ?, ?, ?)";
-        await pool.query(sql, [name, surname, email, phone, password]);
+        sql = "INSERT INTO users (name, surname, email, phone, password, type) VALUES (?, ?, ?, ?, ?, ?)";
+        await pool.query(sql, [name, surname, email, phone, password, type]);
 
         res.json({
             "status": "Ok"

@@ -6,6 +6,7 @@ import { LoginFormComponent } from './components/auth/login-form/login-form.comp
 import { SignupFormComponent } from './components/auth/signup-form/signup-form.component';
 import { ErrorBlockComponent } from './components/helper/error-block/error-block.component';
 import { LecturerMenuComponent } from './components/lecturer-menu/lecturer-menu.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +17,24 @@ import { LecturerMenuComponent } from './components/lecturer-menu/lecturer-menu.
 })
 export class AppComponent {
   title = 'front';
+
+  public isLecturer = false;
+
+   constructor(private authService: AuthService) {
+
+    if (this.authService.user != null && this.authService.user.type == 1) {
+      this.isLecturer = true;
+    }
+    
+
+    this.authService.onLogin.subscribe((isLoggedIn) => {
+      if (this.authService.user != null && this.authService.user.type == 1 && isLoggedIn) {
+      this.isLecturer = true;
+    } else {
+      this.isLecturer = false;
+    }
+      
+    })
+
+   }
 }

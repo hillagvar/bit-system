@@ -4,7 +4,7 @@ import { Lecture } from "../models/lecture";
 
 export class GroupController {
     static async getGroups(req: any, res: any) {
-        const sql = "SELECT * FROM users LEFT JOIN users_groups on users_groups.user_id = users.id LEFT JOIN groups ON users_groups.group_id = groups.id WHERE users.id = ?";
+        const sql = "SELECT * FROM users LEFT JOIN users_groups on users_groups.user_id = users.id LEFT JOIN groups ON users_groups.group_id = groups.id WHERE (users.id = ? AND groups.deleted IS NULL)";
         const [result] = await pool.query<Group[]>(sql, [req.user.id]);
 
         res.json(result);
@@ -14,15 +14,41 @@ export class GroupController {
 
     }
 
-    static async addGroup() {
+    static async addGroup(req: any, res: any) {
+        if (req.body.name == "") {
+            return res.status(400).json({
+                "text": "Neįvestas pavadinimas"
+            });
+        }
 
+        const sql = "INSERT INTO groups (name, start, end, course_id, lecturer_id) VALUES (?,?,?,?,?)";
+
+        try {
+            await pool.query(sql, [req.body.name, req.body.start, req.body.end, req.body.course, req.body.lecturer]);
+            
+            res.json({
+                "success" : true
+            });
+        } catch(error) {
+            
+            res.status(500).json({
+                "text": "Įvyko pridėjimo klaida"
+            });
+        }
     }
 
     static async editGroup() {
 
     }
 
-    static async deleteGroup() {
+    static async deleteGroup(req: any, res: any) {
+        const sql = "UPDATE groups SET deleted = ? WHERE (id = ?)";
+         const [result] = await pool.query(sql, [req.body.deleted, req.params.id]);
+
+         res.json({
+            "success": true
+         });
+
 
     }
 

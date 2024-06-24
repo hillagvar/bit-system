@@ -63,7 +63,13 @@ export class GroupListComponent {
     this.loadStudentGroups();
     }
 
-    
+  }
+
+  public deleteGroup(groupId: number) {
+    this.groupService.deleteGroup(groupId).subscribe(()=> {
+      
+    })
+
   }
 
 }

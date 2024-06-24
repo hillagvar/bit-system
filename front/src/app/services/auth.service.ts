@@ -10,6 +10,8 @@ export class AuthService {
 
   public user: User | null = null;
 
+  public onLogin = new EventEmitter<boolean>();
+
   constructor(private http: HttpClient) {
     const user = localStorage.getItem("user");
 
@@ -27,7 +29,7 @@ export class AuthService {
       tap( (response)=> {
         this.user = response;
         localStorage.setItem("user", JSON.stringify(this.user));
-        
+        this.onLogin.emit(true);
        })
 
       );
@@ -36,6 +38,7 @@ export class AuthService {
   public logOut() {
     this.user = null;
     localStorage.removeItem("user");
+    this.onLogin.emit(false);
 
   }
 
@@ -44,7 +47,11 @@ export class AuthService {
     return (this.user != null && this.user.token != null);
   }
 
-  public canEdit() {
+  public isStudent() {
+    return (this.user != null && (this.user.type == 2));
+  }
+
+  public isLecturer() {
     return (this.user != null && (this.user.type == 1));
   }
 

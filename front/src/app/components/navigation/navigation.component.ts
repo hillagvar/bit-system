@@ -12,12 +12,23 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavigationComponent {
 
-  constructor (private authService: AuthService, private router: Router) {
+  public isLoggedIn = false;
+
+  constructor (public authService: AuthService, private router: Router) {
+    if (authService.isLoggedIn()) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
     
+    this.authService.onLogin.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    })
   }
 
   public logOut() {
     this.authService.logOut();
+    this.isLoggedIn = false;
     this.router.navigate(["/"]);
   }
 

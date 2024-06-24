@@ -22,8 +22,8 @@
 
                     <td>
                         <a class="btn btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
-                        <a class="btn btn-secondary mb-1" *ngIf="authService.canEdit()">Redaguoti</a> &nbsp;
-                        <button class="btn btn-danger mb-1" *ngIf="authService.canEdit()">Ištrinti</button>
+                        <a class="btn btn-secondary mb-1" *ngIf="authService.isLecturer()">Redaguoti</a> &nbsp;
+                        <button class="btn btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteGroup(group.id!)">Ištrinti</button>
                     </td>
                 </tr>
             </tbody>
