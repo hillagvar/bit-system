@@ -24,7 +24,6 @@ export class GroupService {
    }
 
    public addGroup(group: Group) {
-    console.log(group);
     return this.http.post("http://localhost:2999/groups", group);
   }
 

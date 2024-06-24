@@ -7,15 +7,19 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
+import { SuccessComponent } from '../../helper/success/success.component';
 
 @Component({
   selector: 'app-add-group',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, SuccessComponent],
   templateUrl: './add-group.component.html',
   styleUrl: './add-group.component.css'
 })
 export class AddGroupComponent {
+
+  public onSuccess = false;
+  public successText = "";
 
   public courses : Course[] = [];
   public lecturers : User[] = [];
@@ -40,7 +44,12 @@ export class AddGroupComponent {
   public submitGroup(form: NgForm) {
     this.groupService.addGroup(form.form.value).subscribe({
       next:  (data) => {
-      this.router.navigate(["/courses"]);
+      form.reset();
+      this.onSuccess = true;
+      this.successText = "Grupė pridėta sėkmingai!"
+      setTimeout(() => {
+        this.router.navigate(["/courses"]);
+      }, 5000)
       },
       error: (error) => {
         console.log('error');
