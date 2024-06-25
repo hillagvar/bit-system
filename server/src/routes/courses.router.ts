@@ -9,7 +9,7 @@ coursesRouter.get("/", authMiddleware, CoursesController.getCourses);
 coursesRouter.get("/:id", authMiddleware, CoursesController.getCourse);
 coursesRouter.post("/", authMiddleware, CoursesController.addCourse);
 coursesRouter.put("/", authMiddleware, CoursesController.updateCourse);
-coursesRouter.delete("/:id", authMiddleware, CoursesController.deleteCourse);
+coursesRouter.patch("/:id", authMiddleware, CoursesController.deleteCourse);
 coursesRouter.get("/:id/groups", authMiddleware, viewLecturesMiddleware, CoursesController.getGroupsByCourse);
 
 export { coursesRouter };

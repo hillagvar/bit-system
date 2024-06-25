@@ -1,1 +1,48 @@
-<p>edit-group works!</p>
+<div class="card mt-4">
+    <div class="card-header">Redaguoti grupę</div>
+    <div class="card-body">
+        <form (ngSubmit)="updateGroup(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Pasirinkite kursą</label>
+                <select class="form-select" name="course" ngModel #inputCourse="ngModel" [(ngModel)]="course" required [class.is-invalid]="!inputCourse.valid && inputCourse.touched">
+                    <option *ngFor="let course of courses" value="{{ course.id }}" [selected]="selectCourse(course.id!)">{{ course.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputCourse.valid && inputCourse.touched">
+                    Kursas yra privalomas.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Grupės pavadinimas</label>
+                <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name" minLength="6" maxLength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
+                <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
+                    Pavadinimas yra privalomas.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pradžia</label>
+                <input type="date" class="form-control" name="start" value="" ngModel [(ngModel)]="start" required #inputStart="ngModel" [class.is-invalid]="!inputStart.valid && inputStart.touched">
+                <div class="helper-block small text-danger" *ngIf="!inputStart.valid && inputStart.touched">
+                    Pradžios data yra privaloma.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pabaiga</label>
+                <input type="date" class="form-control" name="end" value="" ngModel [(ngModel)]="end" required #inputEnd="ngModel" [class.is-invalid]="!inputEnd.valid && inputEnd.touched">
+                <div class="helper-block small text-danger" *ngIf="!inputEnd.valid && inputEnd.touched">
+                    Pabaigos data yra privaloma.
+                </div>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="" class="form-label">Pasirinkite dėstytoją</label>
+                <select class="form-select" name="lecturer" ngModel #inputLecturer="ngModel" required [class.is-invalid]="!inputLecturer.valid && inputLecturer.touched">
+                    <option value="{{ lecturer?.id }}">{{ lecturer?.name }} {{ lecturer?.surname }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputLecturer.valid && inputLecturer.touched">
+                    Dėstytojas yra privalomas.
+                </div>
+            </div> -->
+            <button class="btn btn-success" type="submit" [disabled]="!f.valid">Redaguoti</button>
+        </form>
+        <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
+    </div>
+</div>

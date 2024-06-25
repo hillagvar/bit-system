@@ -26,7 +26,7 @@ export class SignupFormComponent {
       this.onSignUpSuccess = true;
       setTimeout(() => {
         this.router.navigate(["/"]);
-      }, 6000)
+      }, 5000)
 
     })
 

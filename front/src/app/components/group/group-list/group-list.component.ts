@@ -67,6 +67,7 @@ export class GroupListComponent {
 
   public deleteGroup(groupId: number) {
     this.groupService.deleteGroup(groupId).subscribe(()=> {
+      this.loadGroups();
       
     })
 

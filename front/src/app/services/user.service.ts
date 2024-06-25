@@ -9,7 +9,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getLecturers() {
-    return this.http.get<User[]>("http://localhost:2999/lecturers");
+  // public getLecturers() {
+  //   return this.http.get<User[]>("http://localhost:2999/lecturers");
+  // }
+
+  public getLecturer() {
+    return this.http.get<User>("http://localhost:2999/lecturer");
   }
 }

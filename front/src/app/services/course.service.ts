@@ -26,6 +26,7 @@ export class CourseService {
   }
 
   public deleteCourse(courseId: number) {
-    return this.http.delete("http://localhost:2999/courses/"+courseId);
-  }
+    const deleteDate = new Date().toJSON();
+    return this.http.patch("http://localhost:2999/courses/"+courseId, {"deleted": deleteDate} );
+   }
 }

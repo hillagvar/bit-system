@@ -1,1 +1,16 @@
-<p>edit-course works!</p>
+<div class="card mt-4">
+    <div class="card-header">Redaguoti kursą</div>
+    <div class="card-body">
+        <form (ngSubmit)="updateCourse(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="name" value="" [(ngModel)]="name" ngModel minLength="3" maxLength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
+                <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
+                    Pavadinimas yra privalomas.
+                </div>
+            </div>
+            <button class="btn btn-success" type="submit" [disabled]="!f.valid">Redaguoti</button>
+        </form>
+        <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
+    </div>
+</div>

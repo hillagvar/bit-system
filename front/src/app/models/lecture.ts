@@ -3,5 +3,5 @@ export interface Lecture {
     name: string,
     date: Date,
     description?: string,
-    groupId?: number
+    groupId: number
 }

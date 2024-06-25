@@ -8,7 +8,7 @@
                     <th>Pavadinimas</th>
                     <th>Pradžia</th>
                     <th>Pabaiga</th>
-                    <th>Dėstytojas</th>
+                    <th *ngIf="authService.isStudent()">Dėstytojas</th>
                     <th>Veiksmai</th>
                 </tr>
             </thead>
@@ -18,11 +18,10 @@
                     <td>{{ group.name }}</td>
                     <td>{{ group.start }}</td>
                     <td>{{ group.end }}</td>
-                    <td>{{ group.lecturerName }} {{ group.lecturerSurname }}</td>
-
+                    <td *ngIf="authService.isStudent()">{{ group.lecturer.name }} {{ group.lecturer.surname }}</td>
                     <td>
                         <a class="btn btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
-                        <a class="btn btn-secondary mb-1" *ngIf="authService.isLecturer()">Redaguoti</a> &nbsp;
+                        <a class="btn btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/groups', group.id]">Redaguoti</a> &nbsp;
                         <button class="btn btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteGroup(group.id!)">Ištrinti</button>
                     </td>
                 </tr>

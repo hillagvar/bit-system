@@ -15,8 +15,8 @@
                     <td>{{ course.name }}</td>
                     <td>
                         <a class="btn btn-secondary mb-1" [routerLink]="['/courses', course.id, 'groups']">Žiūrėti grupes</a> &nbsp;
-                        <a class="btn btn-secondary mb-1">Redaguoti</a> &nbsp;
-                        <button class="btn btn-danger mb-1">Ištrinti</button>
+                        <a class="btn btn-secondary mb-1" [routerLink]="['/courses', course.id]">Redaguoti</a> &nbsp;
+                        <button class="btn btn-danger mb-1" (click)="deleteCourse(course.id!)">Ištrinti</button>
                     </td>
                 </tr>
             </tbody>

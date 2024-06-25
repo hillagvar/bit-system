@@ -29,7 +29,7 @@ export class AddCourseComponent {
       this.successText = "Kursas pridėtas sėkmingai!"
       setTimeout(() => {
         this.router.navigate(["/courses"]);
-      }, 5000)
+      }, 2000)
       },
       error: (error) => {
         console.log('error');

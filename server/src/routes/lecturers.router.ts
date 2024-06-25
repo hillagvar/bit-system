@@ -4,6 +4,6 @@ import { LecturersController } from "../controllers/lecturers.controller";
 
 const lecturersRouter = express.Router();
 
-lecturersRouter.get("/", authMiddleware, LecturersController.getLecturers);
+lecturersRouter.get("/", authMiddleware, LecturersController.getLecturer);
 
 export { lecturersRouter };

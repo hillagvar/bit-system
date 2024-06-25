@@ -22,11 +22,12 @@ export class AddGroupComponent {
   public successText = "";
 
   public courses : Course[] = [];
-  public lecturers : User[] = [];
+  // public lecturers : User[] = [];
+  // public lecturer: User | null = null;
 
   constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private userService: UserService) {
     this.loadCourses();
-    this.loadLecturers();
+    // this.loadLecturer();
   }
 
   private loadCourses() {
@@ -35,11 +36,17 @@ export class AddGroupComponent {
     });
   }
 
-  private loadLecturers() {
-    this.userService.getLecturers().subscribe((data) => {
-      this.lecturers = data;
-    });
-  }
+  // private loadLecturers() {
+  //   this.userService.getLecturers().subscribe((data) => {
+  //     this.lecturers = data;
+  //   });
+  // }
+
+  // private loadLecturer() {
+  //   this.userService.getLecturer().subscribe((data) => {
+  //     this.lecturer = data;
+  //   });
+  // }
 
   public submitGroup(form: NgForm) {
     this.groupService.addGroup(form.form.value).subscribe({
@@ -49,7 +56,7 @@ export class AddGroupComponent {
       this.successText = "Grupė pridėta sėkmingai!"
       setTimeout(() => {
         this.router.navigate(["/courses"]);
-      }, 5000)
+      }, 2000)
       },
       error: (error) => {
         console.log('error');

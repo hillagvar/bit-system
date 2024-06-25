@@ -25,6 +25,13 @@ export class CourseListComponent {
     this.loadCourses();
   }
 
+  public deleteCourse(courseId: number) {
+    this.courseService.deleteCourse(courseId).subscribe(()=> {
+      this.loadCourses();
+    });
+
+  }
+
   
 
 }

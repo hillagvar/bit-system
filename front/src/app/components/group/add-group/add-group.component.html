@@ -32,15 +32,15 @@
                     Pabaigos data yra privaloma.
                 </div>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="" class="form-label">Pasirinkite dėstytoją</label>
                 <select class="form-select" name="lecturer" ngModel #inputLecturer="ngModel" required [class.is-invalid]="!inputLecturer.valid && inputLecturer.touched">
-                    <option *ngFor="let lecturer of lecturers" value="{{ lecturer.id }}">{{ lecturer.name }} {{ lecturer.surname }}</option>
+                    <option value="{{ lecturer?.id }}">{{ lecturer?.name }} {{ lecturer?.surname }}</option>
                 </select>
                 <div class="helper-block small text-danger" *ngIf="!inputLecturer.valid && inputLecturer.touched">
                     Dėstytojas yra privalomas.
                 </div>
-            </div>
+            </div> -->
             <button class="btn btn-success" type="submit" [disabled]="!f.valid">Pridėti</button>
         </form>
         <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>

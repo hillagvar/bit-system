@@ -17,7 +17,7 @@ app.use(corsHeaders);
 app.use("/auth", authRouter);
 app.use("/courses", coursesRouter);
 app.use("/groups", groupsRouter);
-app.use("/lecturers", lecturersRouter);
+app.use("/lecturer", lecturersRouter);
 app.use("/student", studentRouter);
 
 

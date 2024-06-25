@@ -17,19 +17,17 @@ export class GroupService {
     return this.http.get<Group[]>("http://localhost:2999/courses/"+courseId+"/groups");
    }
 
-   //reik metodo gauti grupes pgl destytoja
-
    public getGroup(groupId: number) {
-    return this.http.get("http://localhost:2999/groups/"+groupId);
+    return this.http.get<Group>("http://localhost:2999/groups/"+groupId);
    }
 
    public addGroup(group: Group) {
     return this.http.post("http://localhost:2999/groups", group);
   }
 
-   public editGroup() {
-
-   }
+    public updateGroup(group: Group) {
+    return this.http.put("http://localhost:2999/groups", group);
+  }
 
    public deleteGroup(groupId: number) {
     const deleteDate = new Date().toJSON();
