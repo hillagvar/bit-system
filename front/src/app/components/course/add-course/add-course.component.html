@@ -4,12 +4,12 @@
         <form (ngSubmit)="submitCourse(f)" #f="ngForm">
             <div class="mb-3">
                 <label for="" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel minLength="3" maxLength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
+                <input type="text" class="form-control" name="name" value="" ngModel minlength="3" maxlength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
                 <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
                     Pavadinimas yra privalomas.
                 </div>
             </div>
-            <button class="btn btn-success" type="submit" [disabled]="!inputName.valid">Pridėti</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!inputName.valid">Pridėti</button>
         </form>
         <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
     </div>

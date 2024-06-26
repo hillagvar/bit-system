@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.post("http://localhost:2999/auth/signup", user);
   }
 
+  public registerStudent(user: User) {
+    return this.http.post("http://localhost:2999/auth/register", user);
+  }
+
    public loginUser(user: User) {
     return this.http.post<User>("http://localhost:2999/auth/login", user).pipe(
       tap( (response)=> {

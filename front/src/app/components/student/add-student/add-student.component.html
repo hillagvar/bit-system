@@ -1,1 +1,74 @@
-<p>add-student works!</p>
+<div class="card mt-4">
+    <div class="card-header">
+        Pridėti naują studentą
+    </div>
+    <div class="card-body">
+        <form [formGroup]="studentForm" (ngSubmit)="registerStudent()">
+            <div class="mb-3 row">
+                <label for="" class="col-sm-3 col-form-label text-end">Studento vardas:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" formControlName="name" [class.is-invalid]="!studentForm.get('name')?.valid && studentForm.get('name')?.touched">
+                    <div class="helper-block" *ngIf="!studentForm.get('name')?.valid && studentForm.get('name')?.touched">
+                        Vardas yra privalomas.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="" class="col-sm-3 col-form-label text-end">Studento pavardė:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" formControlName="surname" [class.is-invalid]="!studentForm.get('surname')?.valid && studentForm.get('surname')?.touched">
+                    <div class="helper-block" *ngIf="!studentForm.get('surname')?.valid && studentForm.get('surname')?.touched">
+                        Pavardė yra privaloma.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="" class="col-sm-3 col-form-label text-end">El.pašto adresas:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" formControlName="email" [class.is-invalid]="!studentForm.get('email')?.valid && studentForm.get('email')?.touched">
+                    <div class="helper-block" *ngIf="!studentForm.get('email')?.valid && studentForm.get('email')?.touched">
+                        El.pašto adresas yra privalomas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="" class="col-sm-3 col-form-label text-end">Slaptažodis:</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="password" formControlName="password" [class.is-invalid]="!studentForm.get('password')?.valid && studentForm.get('password')?.touched">
+                    <div class="helper-block" *ngIf="!studentForm.get('password')?.valid && studentForm.get('password')?.touched">
+                        Slaptažodis yra privalomas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="" class="col-sm-3 col-form-label text-end">Pridėti studentą prie grupių:</label>
+                <div class="col-sm-9">
+                    <div class="row" formArrayName="groupFields">
+                        <div class="col-sm-12 mb-3" *ngFor="let groupField of groupFields; let i = index">
+                            <select class="form-control" [formControlName]="i">
+                                <option *ngFor=" let group of groups" value="{{ group.id }}">{{ group.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-secondary me-3" (click)="addGroupField()">Pridėti papildomą grupę</button>
+                        <button type="button" class="btn btn-secondary" (click)="removeGroupField()">Pašalinti papildomą grupę</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-sm-3 offset-sm-3">
+                    <button class="btn btn-primary" [disabled]="!studentForm.valid">Pridėti</button>
+                </div>
+            </div>
+
+        </form>
+
+        <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
+
+
+    </div>
+</div>

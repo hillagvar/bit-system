@@ -13,7 +13,7 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Grupės pavadinimas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel minLength="6" maxLength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
+                <input type="text" class="form-control" name="name" value="" ngModel minlength="6" maxlength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
                 <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
                     Pavadinimas yra privalomas.
                 </div>
@@ -32,16 +32,8 @@
                     Pabaigos data yra privaloma.
                 </div>
             </div>
-            <!-- <div class="mb-3">
-                <label for="" class="form-label">Pasirinkite dėstytoją</label>
-                <select class="form-select" name="lecturer" ngModel #inputLecturer="ngModel" required [class.is-invalid]="!inputLecturer.valid && inputLecturer.touched">
-                    <option value="{{ lecturer?.id }}">{{ lecturer?.name }} {{ lecturer?.surname }}</option>
-                </select>
-                <div class="helper-block small text-danger" *ngIf="!inputLecturer.valid && inputLecturer.touched">
-                    Dėstytojas yra privalomas.
-                </div>
-            </div> -->
-            <button class="btn btn-success" type="submit" [disabled]="!f.valid">Pridėti</button>
+
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Pridėti</button>
         </form>
         <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
     </div>

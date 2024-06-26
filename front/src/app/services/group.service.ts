@@ -17,6 +17,10 @@ export class GroupService {
     return this.http.get<Group[]>("http://localhost:2999/courses/"+courseId+"/groups");
    }
 
+   public getGroupsByLecturer() {
+    return this.http.get<Group[]>("http://localhost:2999/groups");
+   }
+
    public getGroup(groupId: number) {
     return this.http.get<Group>("http://localhost:2999/groups/"+groupId);
    }
@@ -31,8 +35,6 @@ export class GroupService {
 
    public deleteGroup(groupId: number) {
     const deleteDate = new Date().toJSON();
-    
     return this.http.patch("http://localhost:2999/groups/"+groupId, {"deleted": deleteDate} );
-
    }
 }

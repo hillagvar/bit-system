@@ -10,5 +10,6 @@ groupsRouter.get("/:id", authMiddleware, viewLecturesMiddleware, GroupController
 groupsRouter.patch("/:id", authMiddleware, GroupController.deleteGroup); //reika dar middleware, kad galetu editinti tik destytojas
 groupsRouter.post("/", authMiddleware, GroupController.addGroup);
 groupsRouter.put("/", authMiddleware, GroupController.updateGroup);
+groupsRouter.get("/", authMiddleware, GroupController.getGroupsByLecturer);
 
 export { groupsRouter };

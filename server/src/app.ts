@@ -4,7 +4,7 @@ import { corsHeaders } from "./middleware/cors.middleware";
 import { coursesRouter } from "./routes/courses.router";
 import { groupsRouter } from "./routes/groups.router";
 import { studentRouter } from "./routes/student.router";
-import { lecturersRouter } from "./routes/lecturers.router";
+import { lecturesRouter } from "./routes/lectures.router";
 
 const app: Application = express();
 
@@ -17,7 +17,7 @@ app.use(corsHeaders);
 app.use("/auth", authRouter);
 app.use("/courses", coursesRouter);
 app.use("/groups", groupsRouter);
-app.use("/lecturer", lecturersRouter);
+app.use("/lectures", lecturesRouter);
 app.use("/student", studentRouter);
 
 

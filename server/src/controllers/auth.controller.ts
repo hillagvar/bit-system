@@ -15,8 +15,6 @@ export class AuthController {
 
          password = await bcrypt.hash(password, 12);
 
-        
-
         let sql = "SELECT * FROM users WHERE email LIKE ?";
         const [result] = await pool.query<User[]>(sql, [email]);
 
@@ -78,6 +76,39 @@ export class AuthController {
             "type": user.type
         });
         }
- 
     }
+
+
+    static async registerStudent (req: any, res: any) {
+        const name = req.body.name;
+        const surname = req.body.surname;
+        const email = req.body.email;
+        const type = 2;
+        let password: string = req.body.password;
+
+         password = await bcrypt.hash(password, 12);
+
+        const sql1 = "SELECT * FROM users WHERE email LIKE ?";
+        const [result1] = await pool.query<User[]>(sql1, [email]);
+
+        if (result1.length != 0) {
+            return res.status(400).json({
+                "text": "Vartotojas su tokiu el.paštu jau registruotas."
+            })
+        }
+
+        const sql2 = "INSERT INTO users (name, surname, email, password, type) VALUES (?, ?, ?, ?, ?)";
+        const [result2, fields] = await pool.query(sql2, [name, surname, email, password, type]);
+        const insertId = (result2 as any).insertId;
+
+        req.body.groupFields.forEach( async (groupId: any)=> {
+            const sql3="INSERT INTO users_groups (user_id, group_id) VALUES (?,?)";
+            await pool.query(sql3, [insertId, groupId]);
+        });
+
+        res.json({
+            "status": "Ok"
+        })
+    }
+
 }

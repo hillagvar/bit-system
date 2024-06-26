@@ -8,6 +8,9 @@ import { AddCourseComponent } from './components/course/add-course/add-course.co
 import { AddGroupComponent } from './components/group/add-group/add-group.component';
 import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 import { EditGroupComponent } from './components/group/edit-group/edit-group.component';
+import { AddLectureComponent } from './components/lecture/add-lecture/add-lecture.component';
+import { EditLectureComponent } from './components/lecture/edit-lecture/edit-lecture.component';
+import { AddStudentComponent } from './components/student/add-student/add-student.component';
 
 
 export const routes: Routes = [
@@ -21,5 +24,8 @@ export const routes: Routes = [
     {path: "groups/:id/lectures", component: LectureListComponent}, 
     {path: "groups/add", component: AddGroupComponent}, 
     {path: "groups/:id", component: EditGroupComponent}, 
+    {path: "lectures/add", component: AddLectureComponent}, 
+    {path: "lectures/:id", component: EditLectureComponent}, 
+    {path: "students/add", component: AddStudentComponent}, 
 
 ];

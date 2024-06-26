@@ -5,8 +5,6 @@ import { Course } from '../../../models/course';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../../services/user.service';
-import { User } from '../../../models/user';
 import { SuccessComponent } from '../../helper/success/success.component';
 
 @Component({
@@ -22,12 +20,9 @@ export class AddGroupComponent {
   public successText = "";
 
   public courses : Course[] = [];
-  // public lecturers : User[] = [];
-  // public lecturer: User | null = null;
 
-  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private userService: UserService) {
+  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router) {
     this.loadCourses();
-    // this.loadLecturer();
   }
 
   private loadCourses() {
@@ -35,18 +30,6 @@ export class AddGroupComponent {
       this.courses = data;
     });
   }
-
-  // private loadLecturers() {
-  //   this.userService.getLecturers().subscribe((data) => {
-  //     this.lecturers = data;
-  //   });
-  // }
-
-  // private loadLecturer() {
-  //   this.userService.getLecturer().subscribe((data) => {
-  //     this.lecturer = data;
-  //   });
-  // }
 
   public submitGroup(form: NgForm) {
     this.groupService.addGroup(form.form.value).subscribe({

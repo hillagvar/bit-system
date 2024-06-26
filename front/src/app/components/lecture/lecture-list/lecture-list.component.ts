@@ -36,6 +36,11 @@ export class LectureListComponent {
     this.loadLectures();
   }
 
+  public deleteLecture(lectureId: number) {
+    this.lectureService.deleteLecture(lectureId).subscribe(()=> {
+      this.loadLectures();
+    });
+  }
 }
 
 

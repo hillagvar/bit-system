@@ -1,1 +1,49 @@
-<p>edit-lecture works!</p>
+<div class="card mt-4">
+    <div class="card-header">Redaguoti paskaitą</div>
+    <div class="card-body">
+        <form (ngSubmit)="updateLecture(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Pasirinkite kursą</label>
+                <select class="form-select" name="course" ngModel #inputCourse="ngModel" required [class.is-invalid]="!inputCourse.valid && inputCourse.touched" [(ngModel)]="course" (change)="changeGroupList(inputCourse.value)">
+                    <option *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputCourse.valid && inputCourse.touched">
+                    Kursas yra privalomas.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pasirinkite grupę</label>
+                <select class="form-select" name="group" ngModel #inputGroup="ngModel" required [class.is-invalid]="!inputGroup.valid && inputGroup.touched" [(ngModel)]="group">
+                    <option *ngFor="let group of groups" value="{{ group.id }}">{{ group.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputGroup.valid && inputGroup.touched">
+                    Grupė yra privaloma.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Paskaitos pavadinimas</label>
+                <input type="text" class="form-control" name="name" value="" ngModel required minlength="6" maxlength="64" #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched" [(ngModel)]="name">
+                <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
+                    Pavadinimas turi būti ne trumpesnis nei 6 ir ne ilgesnis nei 64 simboliai.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Data</label>
+                <input type="date" class="form-control" name="date" value="" ngModel required #inputDate="ngModel" [class.is-invalid]="!inputDate.valid && inputDate.touched" [(ngModel)]="date">
+                <div class="helper-block small text-danger" *ngIf="!inputDate.valid && inputDate.touched">
+                    Data yra privaloma.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Paskaitos aprašymas</label>
+                <textarea class="form-control" name="description" value="" ngModel minlength="10" maxlength="225" #inputDescription="ngModel" [class.is-invalid]="!inputDescription.valid && inputDescription.touched" [(ngModel)]="description"></textarea>
+                <div class="helper-block small text-danger" *ngIf="!inputDescription.valid && inputDescription.touched">
+                    Aprašymas turi būti ne trumpesnis nei 10 ir ne ilgesnis nei 225 simboliai.
+                </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Redaguoti</button>
+        </form>
+        <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
+    </div>
+</div>

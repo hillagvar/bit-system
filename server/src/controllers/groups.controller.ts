@@ -30,8 +30,18 @@ export class GroupController {
         }
     }
 
+
+    static async getGroupsByLecturer(req: any, res: any) {
+        const sql = "SELECT groups.name, groups.id FROM groups LEFT JOIN courses on groups.course_id = courses.id LEFT JOIN users on courses.lecturer_id = users.id WHERE (users.id =? AND groups.deleted IS NULL)";
+        const [result] = await pool.query<Group[]>(sql, [req.user.id]);
+
+        res.json(result);
+    }
+
+
+
       static async getGroup(req: any, res: any) {
-        const sql = "SELECT * FROM groups WHERE id=? AND deleted IS NULL";
+        const sql = "SELECT id, name, start, end, course_id as courseId FROM groups WHERE id=? AND deleted IS NULL";
         const [result] = await pool.query<Group[]>(sql, [req.params.id]);
 
         if (result.length == 0) {
@@ -45,7 +55,6 @@ export class GroupController {
 
         res.json(fixedResult[0]);
     
-
         }
    
     }
@@ -90,7 +99,7 @@ export class GroupController {
     }
 
     static async deleteGroup(req: any, res: any) {
-        const sql = "UPDATE groups SET deleted = ? WHERE (id = ?)";
+        const sql = "UPDATE groups SET deleted = ? WHERE id = ?";
          const [result] = await pool.query(sql, [req.body.deleted, req.params.id]);
 
          res.json({
@@ -110,7 +119,7 @@ export class GroupController {
             })
         }
 
-        const sql2 = "SELECT lectures.name as name, lectures.date as date, description FROM lectures LEFT JOIN groups ON groups.id = lectures.group_id WHERE groups.id =?";
+        const sql2 = "SELECT lectures.id as id, lectures.name as name, lectures.date as date, description FROM lectures LEFT JOIN groups ON groups.id = lectures.group_id WHERE (groups.id =? AND lectures.deleted IS NULL)";
         const [result2] = await pool.query<Lecture[]>(sql2, [req.params.id]);
 
         if (result2.length != 0) {

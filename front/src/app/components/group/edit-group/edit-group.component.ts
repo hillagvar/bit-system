@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { CourseService } from '../../../services/course.service';
 import { Course } from '../../../models/course';
-import { UserService } from '../../../services/user.service';
-import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-edit-group',
@@ -26,7 +24,6 @@ export class EditGroupComponent {
   public course?: number = 0;
   
   public courses : Course[] = [];
-  // public lecturer: User | null = null;
 
   public onSuccess = false;
   public successText = "";
@@ -37,15 +34,8 @@ export class EditGroupComponent {
     });
   }
 
-  // private loadLecturer() {
-  //   this.userService.getLecturer().subscribe((data) => {
-  //     this.lecturer = data;
-  //   });
-  // }
-
-  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService) {
     this.loadCourses();
-    // this.loadLecturer();
 
     this.groupService.getGroup(this.route.snapshot.params["id"]).subscribe({
       next: (group) => {
@@ -77,12 +67,7 @@ export class EditGroupComponent {
       }
     });
 
-  }
-
-  public selectCourse(id: number) {
-    (id == this.course)? true : false;
-  }
-    
+  }  
 
 }
 

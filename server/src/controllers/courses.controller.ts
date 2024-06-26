@@ -70,7 +70,7 @@ export class CoursesController {
     }
 
     static async deleteCourse(req: any, res: any) {
-        const sql = "UPDATE courses SET deleted = ? WHERE (id = ?)";
+        const sql = "UPDATE courses SET deleted = ? WHERE id = ?";
          const [result] = await pool.query(sql, [req.body.deleted, req.params.id]);
 
          res.json({
