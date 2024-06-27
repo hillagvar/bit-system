@@ -1,8 +1,12 @@
-export interface Lecture {
-    id?: number,
-    name: string,
-    date: Date,
-    description?: string,
-    groupId: number,
-    courseId?: number
+export class Lecture {
+    constructor (
+    public groupId: number,
+    public name: string,
+    public date: Date,
+    public id?: number,
+    public description?: string,
+    public courseId?: number
+) {
+
+}
 }

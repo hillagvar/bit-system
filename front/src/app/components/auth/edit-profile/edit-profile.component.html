@@ -1,1 +1,38 @@
-<p>edit-profile works!</p>
+<div class="card mt-4">
+    <div class="card-header">Mano profilis</div>
+    <div class="card-body">
+        <form (ngSubmit)="updateUser(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Vardas</label>
+                <input type="text" class="form-control" name="name" value="" ngModel minlength="3" maxlength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched" [(ngModel)]="name">
+                <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
+                    Vardas yra privalomas.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pavardė</label>
+                <input type="text" class="form-control" name="surname" value="" ngModel minlength="3" maxlength="64" required #inputSurname="ngModel" [class.is-invalid]="!inputSurname.valid && inputSurname.touched" [(ngModel)]="surname">
+                <div class="helper-block small text-danger" *ngIf="!inputSurname.valid && inputSurname.touched">
+                    Pavardė yra privaloma.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Telefono numeris</label>
+                <input type="text" class="form-control" name="phone" value="" ngModel maxlength="12" #inputPhone="ngModel" [class.is-invalid]="!inputPhone.valid && inputPhone.touched" [(ngModel)]="phone">
+                <div class="helper-block small text-danger" *ngIf="!inputPhone.valid && inputPhone.touched">
+                    Telefonas negali būti ilgesnis nei 12 simbolių.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">El.pašto adresas</label>
+                <input type="email" class="form-control" name="email" value="" ngModel required #inputEmail="ngModel" [class.is-invalid]="!inputEmail.valid && inputEmail.touched" [(ngModel)]="email">
+                <div class="helper-block small text-danger" *ngIf="!inputEmail.valid && inputEmail.touched">
+                    El. pašto adresas yra privalomas.
+                </div>
+            </div>
+
+            <button class="btn btn-primary" [disabled]="!f.valid">Atnaujinti</button>
+        </form>
+        <app-success [onSuccess]="onSuccess" [successText]="successText" [notProfile]="notProfile"></app-success>
+    </div>
+</div>

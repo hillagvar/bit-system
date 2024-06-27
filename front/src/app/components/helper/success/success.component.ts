@@ -14,6 +14,9 @@ export class SuccessComponent {
   public onSuccess = false;
 
   @Input()
+  public notProfile = true;
+
+  @Input()
   public successText = "";
 
 }

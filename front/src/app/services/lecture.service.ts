@@ -13,8 +13,16 @@ export class LectureService {
     return this.http.get<Lecture[]>("http://localhost:2999/groups/"+groupId+"/lectures");
   }
 
-  public addLecture(lecture: Lecture) {
-    return this.http.post("http://localhost:2999/lectures", lecture);
+  public addLecture(lecture: Lecture, fileArray: any) {
+    const postLecture = new FormData();
+    postLecture.append("courseId", (lecture.courseId)!.toString());
+    postLecture.append("groupId", (lecture.groupId!)!.toString());
+    postLecture.append("name", lecture.name);
+    postLecture.append("date", (lecture.date!).toString());
+    postLecture.append("description", lecture.description!);
+    for (const file of fileArray)
+    postLecture.append("files", file);
+    return this.http.post("http://localhost:2999/lectures", postLecture);
   }
 
   public getLecture(lectureId: number) {

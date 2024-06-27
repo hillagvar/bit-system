@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from './components/auth/login-form/login-form.component';
-import { SignupFormComponent } from './components/auth/signup-form/signup-form.component';
+import { SignupFormComponent } from './components/auth/signup/signup-form/signup-form.component';
 import { ErrorBlockComponent } from './components/helper/error-block/error-block.component';
 import { LecturerMenuComponent } from './components/lecturer-menu/lecturer-menu.component';
 import { AuthService } from './services/auth.service';

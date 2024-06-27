@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter } from '@angular/core';
-import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { Course } from '../../../models/course';
@@ -8,11 +8,12 @@ import { Group } from '../../../models/group';
 import { GroupService } from '../../../services/group.service';
 import { CourseService } from '../../../services/course.service';
 import { LectureService } from '../../../services/lecture.service';
+import { Lecture } from '../../../models/lecture'
 
 @Component({
   selector: 'app-add-lecture',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, SuccessComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, SuccessComponent],
   templateUrl: './add-lecture.component.html',
   styleUrl: './add-lecture.component.css'
 })
@@ -21,30 +22,49 @@ export class AddLectureComponent {
   public onSuccess = false;
   public successText = "";
 
+  public lectureForm: FormGroup;
+
   public courses : Course[] = [];
   public groups: Group[] = [];
+  public fileArray: File[] = [];
 
   constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private lectureService: LectureService) {
-    this.loadCourses();
-  }
-
-  private loadCourses() {
-    this.courseService.getCourses().subscribe((data)=> {
-      this.courses = data;
+    this.lectureForm = new FormGroup({
+      "course": new FormControl(null),
+      "group": new FormControl(null),
+      "name": new FormControl(null),
+      "date": new FormControl(null),
+      "description": new FormControl(null),
+    
+    })
+    this.courseService.getCourses().subscribe((courses)=> {
+      this.courses = courses;
     });
   }
 
   public selectCourse(inputCourse : number) {
-    this.groupService.getGroupsByCourse(inputCourse).subscribe((data)=> {
-      this.groups = data;
+    this.groupService.getGroupsByCourse(inputCourse).subscribe((groups)=> {
+      this.groups = groups;
     })
   }
- 
 
-  public submitLecture(form: NgForm) {
-    this.lectureService.addLecture(form.form.value).subscribe({
+  public onFileSelected(event:Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+
+    this.fileArray.push(file);
+
+    this.lectureForm.get("file")?.updateValueAndValidity();
+
+  }
+ 
+  public submitLecture() {
+    const values = this.lectureForm.value;
+    const lecture = new Lecture (values.group, values.name, values.date, 0, values.description, values.course);
+    console.log(lecture);
+    
+    this.lectureService.addLecture(lecture, this.fileArray).subscribe({
       next:  (data) => {
-      form.reset();
+      this.lectureForm.reset();
       this.onSuccess = true;
       this.successText = "Paskaita pridėta sėkmingai!"
       setTimeout(() => {

@@ -8,21 +8,25 @@ export class LecturesController {
             return res.status(400).json({
                 "text": "Neįvestas pavadinimas"
             });
+
+        
         }
 
-        const sql = "INSERT INTO lectures (name, date, description, group_id) VALUES (?,?,?,?)";
+        console.log(req.body);
 
-        try {
-            await pool.query(sql, [req.body.name, req.body.date, req.body.description, req.body.group]);
+        // const sql = "INSERT INTO lectures (name, date, description, group_id) VALUES (?,?,?,?)";
+
+        // try {
+        //     await pool.query(sql, [req.body.name, req.body.date, req.body.description, req.body.group]);
             
-            res.json({
-                "success" : true
-            });
-        } catch(error) {
-            res.status(500).json({
-                "text": "Įvyko pridėjimo klaida"
-            });
-        }
+        //     res.json({
+        //         "success" : true
+        //     });
+        // } catch(error) {
+        //     res.status(500).json({
+        //         "text": "Įvyko pridėjimo klaida"
+        //     });
+        // }
     }
 
     static async getLecture(req: any, res: any) {
