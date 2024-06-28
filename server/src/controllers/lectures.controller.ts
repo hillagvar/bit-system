@@ -4,17 +4,25 @@ import { Lecture } from "../models/lecture";
 export class LecturesController {
 
     static async addLecture(req: any, res: any) {
-        if (req.body.name == "") {
-            return res.status(400).json({
-                "text": "Neįvestas pavadinimas"
-            });
+        const name = req.body.name;
+        const date = req.body.date;
+        const description = req.body.description;
+        const groupId = Number(req.body.groupId);
+        const files = req.files;
 
-        
-        }
+        const sql = "INSERT INTO lectures (name, date, description, group_id) VALUES (?,?,?,?)";
+        const [result, fields] = await pool.query(sql, [name, date, description, groupId]);
+        const insertId = (result as any).insertId;
 
-        console.log(req.body);
+        files.forEach(async (file: any) => {
+            const url = req.protocol+"://"+req.get("host")+"/files/"+file.filename ;
+            const sql2 = "INSERT INTO files (url, lecture_id) VALUES (?,?)";
+            await pool.query(sql2, [url, insertId]);
+        });
 
-        // const sql = "INSERT INTO lectures (name, date, description, group_id) VALUES (?,?,?,?)";
+        res.json({
+            "status": "Ok"
+        })
 
         // try {
         //     await pool.query(sql, [req.body.name, req.body.date, req.body.description, req.body.group]);
@@ -27,6 +35,8 @@ export class LecturesController {
         //         "text": "Įvyko pridėjimo klaida"
         //     });
         // }
+
+       
     }
 
     static async getLecture(req: any, res: any) {

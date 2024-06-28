@@ -56,6 +56,10 @@ export class AddLectureComponent {
     this.lectureForm.get("file")?.updateValueAndValidity();
 
   }
+
+  public dropFile(i: number) {
+    this.fileArray.splice(i,1);
+  }
  
   public submitLecture() {
     const values = this.lectureForm.value;

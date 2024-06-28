@@ -15,6 +15,8 @@ const fileStorage = multer.diskStorage({
         callback(null, "./files");
     },
     filename: (req, file, callback) => {
+        const uploadDate = new Date().toLocaleDateString("LT");
+        // callback(null, uploadDate + "_" + file.originalname);
         callback(null, file.originalname);
     }
 })
