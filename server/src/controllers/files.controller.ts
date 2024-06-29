@@ -49,7 +49,7 @@ export class FilesController {
 
 
 
-    static async hideFile(req: any, res: any) {
+    static async changeFileVisibility(req: any, res: any) {
 
         const sql = "UPDATE files SET hidden = ? WHERE id = ?";
         await pool.query(sql, [req.body.hidden, req.params.id]);
@@ -57,6 +57,7 @@ export class FilesController {
          res.json({
             "status": "Ok"
         }) 
-
     }
+
+ 
 }

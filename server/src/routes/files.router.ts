@@ -18,6 +18,6 @@ const fileStorage = multer.diskStorage({
 
 filesRouter.post("/add", authMiddleware, multer({storage: fileStorage}).array("files", 5), FilesController.addFile);
 filesRouter.delete("/:id", authMiddleware, FilesController.deleteFile);
-filesRouter.patch("/:id", authMiddleware, FilesController.hideFile);
+filesRouter.patch("/:id", authMiddleware, FilesController.changeFileVisibility);
 
 export { filesRouter };

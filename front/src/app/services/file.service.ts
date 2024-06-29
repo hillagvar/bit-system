@@ -26,6 +26,10 @@ export class FileService {
     return this.http.patch("http://localhost:2999/file/"+id, {"hidden": 0} );
    }
 
+  public unhideFile(id: number) {
+    return this.http.patch("http://localhost:2999/file/"+id, {"hidden": 1} );
+   }
+
   public deleteFile(id: number) {
     return this.http.delete("http://localhost:2999/file/"+id);
    }

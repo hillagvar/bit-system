@@ -71,7 +71,17 @@ export class LectureListComponent {
 
   public hideFile(id: number) {
     this.fileService.hideFile(id).subscribe(()=> {
+      this.fileService.getFileList(this.openedlectureId).subscribe((data)=> {
+        this.fileList = data;
+    })
+    })
+  }
 
+  public unhideFile(id: number) {
+    this.fileService.unhideFile(id).subscribe(()=> {
+      this.fileService.getFileList(this.openedlectureId).subscribe((data)=> {
+        this.fileList = data;
+    })
     })
   }
 
