@@ -2,6 +2,8 @@ import express from "express";
 import { authMiddleware } from "../middleware/auth.middleware";
 import multer from "multer";
 import { FilesController } from "../controllers/files.controller";
+import { editMiddleware } from "../middleware/edit.middleware";
+import { ownFilesMiddleware } from "../middleware/own.files.middleware";
 
 const filesRouter = express.Router();
 
@@ -16,8 +18,8 @@ const fileStorage = multer.diskStorage({
     }
 })
 
-filesRouter.post("/add", authMiddleware, multer({storage: fileStorage}).array("files", 5), FilesController.addFile);
-filesRouter.delete("/:id", authMiddleware, FilesController.deleteFile);
-filesRouter.patch("/:id", authMiddleware, FilesController.changeFileVisibility);
+filesRouter.post("/add", authMiddleware, editMiddleware, multer({storage: fileStorage}).array("files", 5), FilesController.addFile);
+filesRouter.delete("/:id", authMiddleware, editMiddleware, ownFilesMiddleware, FilesController.deleteFile);
+filesRouter.patch("/:id", authMiddleware, editMiddleware, ownFilesMiddleware, FilesController.changeFileVisibility);
 
 export { filesRouter };

@@ -6,13 +6,14 @@ import multer from "multer";
 import { FilesController } from "../controllers/files.controller";
 import { editMiddleware } from "../middleware/edit.middleware";
 import { ownLectureMiddleware } from "../middleware/own.lecture.middleware";
+import { viewLecturesMiddleware } from "../middleware/view.lectures.middleware";
 
 const lecturesRouter = express.Router();
 
 lecturesRouter.get("/:id", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.getLecture);
 lecturesRouter.put("/", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.updateLecture);
 lecturesRouter.patch("/:id", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.deleteLecture);
-lecturesRouter.get("/:id/files", authMiddleware, FilesController.getFileList);
+lecturesRouter.get("/:id/files", authMiddleware, ownLectureMiddleware, viewLecturesMiddleware, FilesController.getFileList); 
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, callback) => {
