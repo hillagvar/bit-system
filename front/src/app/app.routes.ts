@@ -14,24 +14,68 @@ import { AddStudentComponent } from './components/student/add-student/add-studen
 import { EditProfileComponent } from './components/auth/edit-profile/edit-profile.component';
 import { AddFileComponent } from './components/file/add-file/add-file.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { studentGuard } from './guards/student.guard';
+import { lecturerGuard } from './guards/lecturer.guard';
+import { viewGuard } from './guards/view.guard';
 
 
 export const routes: Routes = [
     {path: "", component: LoginFormComponent},
     {path: "signup", component: SignupFormComponent},
-    {path: "student/groups", component: GroupListComponent},
-    {path: "courses", component: CourseListComponent}, //only lecturer can access
-    {path: "courses/add", component: AddCourseComponent}, //only lecturer can access
-    {path: "courses/:id", component: EditCourseComponent}, //only lecturer can access
-    {path: "courses/:id/groups", component: GroupListComponent}, //only lecturer can access
-    {path: "groups/:id/lectures", component: LectureListComponent}, 
-    {path: "groups/add", component: AddGroupComponent}, 
-    {path: "groups/:id", component: EditGroupComponent}, 
-    {path: "lectures/add", component: AddLectureComponent}, 
-    {path: "lectures/:id", component: EditLectureComponent}, 
-    {path: "students/add", component: AddStudentComponent}, 
-    {path: "student/profile", component: EditProfileComponent}, 
-    {path: "file/add", component: AddFileComponent}, 
+
+    {
+        path: "student/groups", component: GroupListComponent,
+        canActivate: [studentGuard]
+    },
+    {
+        path: "courses", component: CourseListComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "courses/add", component: AddCourseComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "courses/:id", component: EditCourseComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "courses/:id/groups", component: GroupListComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "groups/:id/lectures", component: LectureListComponent,
+        canActivate: [viewGuard]
+    }, 
+    {
+        path: "groups/add", component: AddGroupComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "groups/:id", component: EditGroupComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "lectures/add", component: AddLectureComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "lectures/:id", component: EditLectureComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "students/add", component: AddStudentComponent,
+        canActivate: [lecturerGuard]
+    }, 
+    {
+        path: "student/profile", component: EditProfileComponent,
+        canActivate: [studentGuard]
+    }, 
+    {
+        path: "file/add", component: AddFileComponent,
+        canActivate: [lecturerGuard]
+    }, 
+
     {path: "**", component: PageNotFoundComponent}, 
 
 
