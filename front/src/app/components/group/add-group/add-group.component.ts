@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SuccessComponent } from '../../helper/success/success.component';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-add-group',
@@ -21,7 +22,7 @@ export class AddGroupComponent {
 
   public courses : Course[] = [];
 
-  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router) {
+  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private errorService: ErrorService) {
     this.loadCourses();
   }
 
@@ -42,7 +43,7 @@ export class AddGroupComponent {
       }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     })
 

@@ -42,6 +42,12 @@ export class userController {
             })
         }
 
+        if (req.body.name == "" || req.body.surname == "" || req.body.email == "") {
+            return res.status(400).json({
+                "text": "Įvyko atnaujinimo klaida"
+            });
+        }
+
 
        sql = "UPDATE users SET name=?, surname=?, phone=?, email=? WHERE id=?";
 

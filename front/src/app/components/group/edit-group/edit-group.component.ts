@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { CourseService } from '../../../services/course.service';
 import { Course } from '../../../models/course';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-edit-group',
@@ -34,7 +35,7 @@ export class EditGroupComponent {
     });
   }
 
-  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService) {
+  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService, private errorService: ErrorService) {
     this.loadCourses();
 
     this.groupService.getGroup(this.route.snapshot.params["id"]).subscribe({
@@ -46,7 +47,7 @@ export class EditGroupComponent {
         this.course = group.courseId;
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 
@@ -63,7 +64,7 @@ export class EditGroupComponent {
         }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 

@@ -9,6 +9,7 @@ import { GroupService } from '../../../services/group.service';
 import { CourseService } from '../../../services/course.service';
 import { LectureService } from '../../../services/lecture.service';
 import { Lecture } from '../../../models/lecture'
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-add-lecture',
@@ -28,7 +29,7 @@ export class AddLectureComponent {
   public groups: Group[] = [];
   public fileArray: File[] = [];
 
-  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private lectureService: LectureService) {
+  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private lectureService: LectureService, private errorService: ErrorService) {
     this.lectureForm = new FormGroup({
       "course": new FormControl(null),
       "group": new FormControl(null),
@@ -74,7 +75,7 @@ export class AddLectureComponent {
       }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     })
 

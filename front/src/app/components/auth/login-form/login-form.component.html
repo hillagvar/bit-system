@@ -3,21 +3,27 @@
         <div class="card">
             <div class="d-flex justify-content-center">
                 <a class="btn btn-primary mx-3 mt-3" routerLink="/">Prisijungimas</a>
-                <a class="btn btn-outline-primary mx-3 mt-3" routerLink="/signup">Dėstytojo registracija</a>
+                <a class="btn btn-outline-primary mx-3 mt-3" routerLink="/signup">Registracija</a>
             </div>
             <div class="card-body">
                 <form (ngSubmit)="onLogin(f)" #f="ngForm">
                     <div class="mb-3">
                         <label for="" class="form-label">El.pašto adresas</label>
-                        <input type="email" name="email" class="form-control" ngModel required minLength="5" maxLength="64" email>
+                        <input type="email" name="email" class="form-control" ngModel required email #inputEmail="ngModel" [class.is-invalid]="!inputEmail.valid && inputEmail.touched">
+                        <div class="helper-block small text-danger" *ngIf="!inputEmail.valid && inputEmail.touched">
+                            El.pašto adresas yra privalomas.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Slaptažodis</label>
-                        <input type="password" name="password" class="form-control" ngModel required>
+                        <input type="password" name="password" class="form-control" ngModel required #inputPassword="ngModel" [class.is-invalid]="!inputPassword.valid && inputPassword.touched">
+                        <div class="helper-block small text-danger" *ngIf="!inputPassword.valid && inputPassword.touched">
+                            Slaptažodis yra privalomas.
+                        </div>
                     </div>
 
-                    <button class="btn btn-primary">Prisijungti</button>
+                    <button class="btn btn-primary" [disabled]="!f.valid">Prisijungti</button>
                 </form>
             </div>
         </div>

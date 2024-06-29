@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -26,7 +27,7 @@ export class EditProfileComponent {
   public successText = "";
 
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(private authService: AuthService, private userService: UserService, private errorService: ErrorService) {
     this.loadProfile();
   }
 
@@ -60,7 +61,7 @@ export class EditProfileComponent {
         this.successText = "Profilis atnaujintas sėkmingai!"
       },
       error: (error) => {
-        console.log(error.error.text);
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 

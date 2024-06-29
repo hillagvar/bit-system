@@ -7,11 +7,12 @@ import { SignupFormComponent } from './components/auth/signup/signup-form/signup
 import { ErrorBlockComponent } from './components/helper/error-block/error-block.component';
 import { LecturerMenuComponent } from './components/lecturer-menu/lecturer-menu.component';
 import { AuthService } from './services/auth.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NavigationComponent, LoginFormComponent, SignupFormComponent, ErrorBlockComponent, LecturerMenuComponent],
+  imports: [RouterOutlet, CommonModule, NavigationComponent, LoginFormComponent, SignupFormComponent, ErrorBlockComponent, LecturerMenuComponent, PageNotFoundComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

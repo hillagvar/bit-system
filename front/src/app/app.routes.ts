@@ -13,6 +13,7 @@ import { EditLectureComponent } from './components/lecture/edit-lecture/edit-lec
 import { AddStudentComponent } from './components/student/add-student/add-student.component';
 import { EditProfileComponent } from './components/auth/edit-profile/edit-profile.component';
 import { AddFileComponent } from './components/file/add-file/add-file.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 export const routes: Routes = [
@@ -31,6 +32,7 @@ export const routes: Routes = [
     {path: "students/add", component: AddStudentComponent}, 
     {path: "student/profile", component: EditProfileComponent}, 
     {path: "file/add", component: AddFileComponent}, 
+    {path: "**", component: PageNotFoundComponent}, 
 
 
 ];

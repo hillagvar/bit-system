@@ -8,6 +8,7 @@ import { LectureService } from '../../../services/lecture.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SuccessComponent } from '../../helper/success/success.component';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-edit-lecture',
@@ -47,7 +48,7 @@ export class EditLectureComponent {
     this.loadGroups(inputCourse);
   }
 
-  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService, private lectureService: LectureService) {
+  constructor(private route: ActivatedRoute, private router: Router, private groupService: GroupService, private courseService: CourseService, private lectureService: LectureService, private errorService: ErrorService) {
     this.loadCourses();
 
     this.lectureService.getLecture(this.route.snapshot.params["id"]).subscribe({
@@ -61,7 +62,7 @@ export class EditLectureComponent {
         this.loadGroups(this.course!);
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 
@@ -78,7 +79,7 @@ export class EditLectureComponent {
         }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 

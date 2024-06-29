@@ -10,7 +10,7 @@ export class AuthController {
         const surname = req.body.surname;
         const phone = req.body.phone;
         const email = req.body.email;
-        const type = 1;
+        const type = req.body.type;
         let password: string = req.body.password;
 
          password = await bcrypt.hash(password, 12);
@@ -24,13 +24,26 @@ export class AuthController {
             })
         }
 
-        sql = "INSERT INTO users (name, surname, email, phone, password, type) VALUES (?, ?, ?, ?, ?, ?)";
-        await pool.query(sql, [name, surname, email, phone, password, type]);
+        if (req.body.name == "" || req.body.surname == "" || req.body.email == "" || req.body.password == "") {
+            return res.status(400).json({
+                "text": "Įvyko klaida."
+            })
+        }
 
-        res.json({
-            "status": "Ok"
-        });
+        sql = "INSERT INTO users (name, surname, email, phone, password, type) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            await pool.query(sql, [name, surname, email, phone, password, type]);
+            res.json({
+                "success" : true
+            });
+        } catch(error) {
+            res.status(500).json({
+                "text": "Įvyko klaida"
+            });
+        }  
     }
+
 
     static async login(req: any, res: any) {
         const email = req.body.email;

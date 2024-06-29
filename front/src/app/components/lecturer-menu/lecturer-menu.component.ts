@@ -12,13 +12,13 @@ import { CommonModule } from '@angular/common';
 })
 export class LecturerMenuComponent {
 
-  public isError : boolean = false;
+  // public isError : boolean = false;
 
-  constructor (private errorService: ErrorService) {
-    this.errorService.errorEmitter.subscribe((data) => {
-      this.isError = true;
-    });
-  }
+  // constructor (private errorService: ErrorService) {
+  //   this.errorService.errorEmitter.subscribe((data) => {
+  //     this.isError = true;
+  //   });
+  // }
 
 
 }

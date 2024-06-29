@@ -5,7 +5,7 @@ import { Lecture } from "../models/lecture";
 export class GroupController {
 
     static async getGroupsByStudent(req: any, res: any) {
-        const sql = "SELECT groups.name, groups.start, groups.end, groups.id, courses.id as courseId FROM users LEFT JOIN users_groups on users_groups.user_id = users.id LEFT JOIN groups ON users_groups.group_id = groups.id LEFT JOIN courses on courses.id = groups.course_id WHERE (users.id = ? AND groups.deleted IS NULL)";
+        const sql = "SELECT groups.name, groups.start, groups.end, groups.id, courses.id as courseId FROM users RIGHT JOIN users_groups on users_groups.user_id = users.id LEFT JOIN groups ON users_groups.group_id = groups.id LEFT JOIN courses on courses.id = groups.course_id WHERE (users.id = ? AND groups.deleted IS NULL)";
         const [result] = await pool.query<Group[]>(sql, [req.user.id]);
 
         for(let i=0; i < result.length; i++) {
@@ -15,7 +15,7 @@ export class GroupController {
             result[i].lecturer = lecturer[0];
         }
 
-        if (result.length != 0) {
+        if (result.length !== 0) {
         
         const fixedResult = result.map( group => {
             return {...group, start: group.start.toLocaleDateString("LT"), end: group.end.toLocaleDateString("LT")};

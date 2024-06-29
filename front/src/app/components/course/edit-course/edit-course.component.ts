@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../services/course.service';
 import { SuccessComponent } from '../../helper/success/success.component';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -20,16 +21,15 @@ export class EditCourseComponent {
   public onSuccess = false;
   public successText = "";
 
-  constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService) {
+  constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService, private errorService: ErrorService) {
 
     this.courseService.getCourse(this.route.snapshot.params["id"]).subscribe({
       next: (course) => {
         this.name = course.name;
         this.id = course.id;
-       
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 
@@ -47,7 +47,7 @@ export class EditCourseComponent {
         }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     });
 

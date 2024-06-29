@@ -8,7 +8,6 @@ const authMiddleware = (req: any, res: any, next: any) => {
         if (process.env.TOKEN_SECRET != null){
             const user = (jwt.verify (token, process.env.TOKEN_SECRET)) as {id: number, type: number};
             req.user = user;
-            
         }
         next();
 
