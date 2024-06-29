@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Lecture } from '../models/lecture';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LectureService {
+
+  public openListEmitter = new EventEmitter<number>();
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +21,7 @@ export class LectureService {
     postLecture.append("groupId", (lecture.groupId!)!.toString());
     postLecture.append("name", lecture.name);
     postLecture.append("date", (lecture.date!).toString());
-    postLecture.append("description", lecture.description!);
+    postLecture.append("description", (lecture.description == null)? "" : lecture.description);
     for (const file of fileArray)
     postLecture.append("files", file);
     return this.http.post("http://localhost:2999/lectures", postLecture);

@@ -16,8 +16,8 @@ export class LecturesController {
 
         files.forEach(async (file: any) => {
             const url = req.protocol+"://"+req.get("host")+"/files/"+file.filename ;
-            const sql2 = "INSERT INTO files (url, lecture_id) VALUES (?,?)";
-            await pool.query(sql2, [url, insertId]);
+            const sql2 = "INSERT INTO files (url, lecture_id, name) VALUES (?,?,?)";
+            await pool.query(sql2, [url, insertId, file.filename]);
         });
 
         res.json({

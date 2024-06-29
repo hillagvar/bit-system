@@ -20,9 +20,9 @@
                     <td>{{ group.end }}</td>
                     <td *ngIf="authService.isStudent()">{{ group.lecturer.name }} {{ group.lecturer.surname }}</td>
                     <td>
-                        <a class="btn btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
-                        <a class="btn btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/groups', group.id]">Redaguoti</a> &nbsp;
-                        <button class="btn btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteGroup(group.id!)">Ištrinti</button>
+                        <a class="btn btn-sm btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
+                        <a class="btn btn-sm btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/groups', group.id]">Redaguoti</a> &nbsp;
+                        <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteGroup(group.id!)">Ištrinti</button>
                     </td>
                 </tr>
             </tbody>

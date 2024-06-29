@@ -1,0 +1,50 @@
+<div class="card mt-4">
+    <div class="card-header">Pridėti naują failą</div>
+    <div class="card-body">
+        <form (ngSubmit)="submitFile(f)" #f="ngForm">
+            <div class="mb-3">
+                <label for="" class="form-label">Pasirinkite kursą</label>
+                <select class="form-select" name="course" ngModel #inputCourse="ngModel" required [class.is-invalid]="!inputCourse.valid && inputCourse.touched" (change)="selectCourse(inputCourse.value)">
+                    <option *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputCourse.valid && inputCourse.touched">
+                    Kursas yra privalomas.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Grupės pavadinimas</label>
+                <select class="form-select" name="group" ngModel #inputGroup="ngModel" required [class.is-invalid]="!inputGroup.valid && inputGroup.touched" (change)="selectGroup(inputGroup.value)">
+                    <option *ngFor=" let group of groups" value="{{ group.id }}">{{ group.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputGroup.valid && inputGroup.touched">
+                    Grupė yra privaloma.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Paskaitos pavadinimas</label>
+                <select class="form-select" name="lecture" ngModel #inputLecture="ngModel" required [class.is-invalid]="!inputLecture.valid && inputLecture.touched">
+                    <option *ngFor="let lecture of lectures" value="{{ lecture.id }}">{{ lecture.name }}</option>
+                </select>
+                <div class="helper-block small text-danger" *ngIf="!inputLecture.valid && inputLecture.touched">
+                    Paskaita yra privaloma.
+                </div>
+            </div>
+
+            <div class="mb-3 ">
+                <button class="btn btn-info mb-3" type="button" (click)="filePicker.click()">Įkelti failą ar failus</button>
+                <input type="file" name="lectureFile" class="d-none" #filePicker (change)="onFileSelected($event)">
+
+                <div class="mb-3">
+                    <div class="d-flex" *ngFor=" let file of fileArray, let i = index;">
+                        <p>{{ file.name }}</p>
+                        <button *ngIf="fileArray.length != 0" class="btn btn-sm btn-danger" (click)="dropFile(i)">Pašalinti</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary" type="submit">Pridėti</button>
+        </form>
+        <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
+    </div>
+</div>

@@ -1,29 +1,54 @@
 <div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Paskaitų sąrašas</div>
     <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Pavadinimas</th>
-                    <th>Data</th>
-                    <th>Aprašymas</th>
-                    <th>Veiksmai</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let lecture of lectures; let i = index;">
-                    <td>{{ i+1 }}</td>
-                    <td>{{ lecture.name }}</td>
-                    <td>{{ lecture.date }}</td>
-                    <td>{{ lecture.description }}</td>
-                    <td>
-                        <button class="btn btn-secondary mb-1">Žiūrėti failus</button> &nbsp;
-                        <a class="btn btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/lectures', lecture.id]">Redaguoti</a> &nbsp;
-                        <button class="btn btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteLecture(lecture.id!)">Ištrinti</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="row">
+
+            <div class="col-md-1">
+                <h6>Nr.</h6>
+            </div>
+            <div class="col-md-2">
+                <h6>Pavadinimas</h6>
+            </div>
+            <div class="col-md-2">
+                <h6>Data</h6>
+            </div>
+            <div class="col-md-2">
+                <h6>Aprašymas</h6>
+            </div>
+            <div class="col-md-5">
+                <h6>Veiksmai</h6>
+            </div>
+            <hr>
+        </div>
+
+
+        <div class="row mt-2" *ngFor="let lecture of lectures; let i = index;">
+
+
+            <div class="col-md-1">
+                {{ i+1 }}
+            </div>
+            <div class="col-md-2">{{ lecture.name }}</div>
+            <div class="col-md-2">{{ lecture.date }}</div>
+            <div class="col-md-2">{{ lecture.description }}</div>
+            <div class="col-md-5 mb-4">
+                <button class="btn btn-sm btn-secondary mx-auto" (click)="openFileList(lecture.id!)">Žiūrėti failus</button> &nbsp;
+                <a class="btn-sm btn btn-secondary mx-auto" *ngIf="authService.isLecturer()" [routerLink]="['/lectures', lecture.id]">Redaguoti</a> &nbsp;
+                <button class="btn btn-sm btn-danger mx-auto" *ngIf="authService.isLecturer()" (click)="deleteLecture(lecture.id!)">Ištrinti</button>
+            </div>
+            <hr>
+            <div id="{{lecture.id!}}" *ngIf="lecture.id == openedlectureId">
+                <ul>
+
+                    <li *ngFor="let file of fileList">
+                        <a href="{{ file.url }}">{{ file.name }}</a><button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="deleteFile(file.id!)">Ištrinti</button>&nbsp;
+                        <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer()" (click)="hideFile(file.id!)">Paslėpti</button>
+
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
     </div>
-</div>

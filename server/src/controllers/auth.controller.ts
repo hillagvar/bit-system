@@ -61,13 +61,13 @@ export class AuthController {
 
             let token = jwt.sign(
             {
-            "id": user.id
+            "id": user.id,
+            "type": user.type,
             },
         process.env.TOKEN_SECRET, 
         {
             expiresIn: "1 day"
         });
-
         
         res.json({
             "id": user.id,

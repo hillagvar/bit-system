@@ -53,8 +53,6 @@ export class AddLectureComponent {
 
     this.fileArray.push(file);
 
-    this.lectureForm.get("file")?.updateValueAndValidity();
-
   }
 
   public dropFile(i: number) {
@@ -64,11 +62,11 @@ export class AddLectureComponent {
   public submitLecture() {
     const values = this.lectureForm.value;
     const lecture = new Lecture (values.group, values.name, values.date, 0, values.description, values.course);
-    console.log(lecture);
     
     this.lectureService.addLecture(lecture, this.fileArray).subscribe({
       next:  (data) => {
       this.lectureForm.reset();
+      this.fileArray = [];
       this.onSuccess = true;
       this.successText = "Paskaita pridėta sėkmingai!"
       setTimeout(() => {
