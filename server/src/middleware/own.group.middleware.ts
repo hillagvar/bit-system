@@ -2,6 +2,7 @@ import { pool } from "../db/connect";
 import { Group } from "../models/group";
 
 const ownGroupMiddleware = async (req:any, res:any, next:any) => {
+    try {
     const sql = "SELECT * FROM groups LEFT JOIN courses ON groups.course_id = courses.id LEFT JOIN users ON courses.lecturer_id = users.id WHERE (users.id = ? AND groups.id =?)";
     const sql2 = "SELECT * FROM groups WHERE id= ?";
     const [result] = await pool.query<Group[]>(sql, [req.user.id, req.params.id]);
@@ -20,9 +21,12 @@ const ownGroupMiddleware = async (req:any, res:any, next:any) => {
         })
     } else {
         next();
-    }
- {}
-    
+        }
+    } catch(error) {
+        return res.status(500).json({
+            "text": "Įvyko klaida"
+            });
+        } 
 };
 
 

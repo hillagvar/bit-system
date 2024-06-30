@@ -29,9 +29,13 @@ export class StudentListComponent {
   }
 
   private loadStudents() {
-    this.studentService.getStudentsByGroup(this.groupId).subscribe((data)=> {
-      this.students = data; //prideti error
-      console.log(data);
+    this.studentService.getStudentsByGroup(this.groupId).subscribe({
+      next: (data)=> {
+      this.students = data;
+    },
+      error: (error) => {
+         this.errorService.errorEmitter.emit(error.error.text);
+      }
     })
   }
   

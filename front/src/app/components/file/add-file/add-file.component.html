@@ -35,15 +35,18 @@
                 <input type="file" name="lectureFile" class="d-none" #filePicker (change)="onFileSelected($event)">
 
                 <div class="mb-3">
-                    <div class="d-flex" *ngFor=" let file of fileArray, let i = index;">
-                        <p>{{ file.name }}</p>
+                    <div class="d-flex align-items-start" *ngFor=" let file of fileArray, let i = index;">
+                        <p>{{ file.name }}</p>&nbsp;&nbsp;
                         <button *ngIf="fileArray.length != 0" class="btn btn-sm btn-danger" (click)="dropFile(i)">Pašalinti</button>
+                    </div>
+                    <div class="helper-block small text-danger" *ngIf="fileArray.length > 5">
+                        Galima pridėti ne daugiau 5 failų.
                     </div>
                 </div>
 
             </div>
 
-            <button class="btn btn-primary" type="submit">Pridėti</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid || fileArray.length > 5 || fileArray.length == 0">Pridėti</button>
         </form>
         <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
     </div>

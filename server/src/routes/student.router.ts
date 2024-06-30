@@ -8,7 +8,7 @@ import { editMiddleware } from "../middleware/edit.middleware";
 const studentRouter = express.Router();
 
 studentRouter.get("/groups", authMiddleware, GroupController.getGroupsByStudent);
-studentRouter.delete("/groups/:id", authMiddleware, StudentController.deleteStudentFromGroup);
+studentRouter.delete("/groups/:id", authMiddleware, editMiddleware, StudentController.deleteStudentFromGroup);
 studentRouter.get("/profile/:id", authMiddleware, UserController.getUser);
 studentRouter.put("/profile/:id", authMiddleware, UserController.updateUser);
 studentRouter.get("/all", authMiddleware, editMiddleware, StudentController.getAllStudents);
