@@ -4,32 +4,45 @@
         <form action="" [formGroup]="lectureForm" (ngSubmit)="submitLecture()">
             <div class="mb-3">
                 <label for="" class="form-label">Pasirinkite kursą</label>
-                <select class="form-select" formControlName="course" (change)="selectCourse(lectureForm.value.course)">
+                <select class="form-select" formControlName="course" required (change)="selectCourse(lectureForm.value.course)" [class.is-invalid]="!lectureForm.get('course')?.valid && lectureForm.get('course')?.touched">
                     <option *ngFor="let course of courses" value="{{ course.id }}">{{ course.name }}</option>
                 </select>
+                <div class="helper-block small text-danger" *ngIf="!lectureForm.get('course')?.valid && lectureForm.get('course')?.touched">
+                    Kursas yra privalomas.
+                </div>
 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Pasirinkite grupę</label>
-                <select class="form-select" formControlName="group">
+                <select class="form-select" formControlName="group" required [class.is-invalid]="!lectureForm.get('group')?.valid && lectureForm.get('group')?.touched">
                     <option *ngFor="let group of groups" value="{{ group.id }}">{{ group.name }}</option>
                 </select>
+                <div class="helper-block small text-danger" *ngIf="!lectureForm.get('group')?.valid && lectureForm.get('group')?.touched">
+                    Grupė yra privaloma.
+                </div>
 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Paskaitos pavadinimas</label>
-                <input type="text" class="form-control" formControlName="name">
-
+                <input type="text" class="form-control" formControlName="name" required minlength="3" [class.is-invalid]="!lectureForm.get('name')?.valid && lectureForm.get('name')?.touched">
+                <div class="helper-block small text-danger" *ngIf="!lectureForm.get('name')?.valid && lectureForm.get('name')?.touched">
+                    Pavadinimas yra privalomas.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Data</label>
-                <input type="date" class="form-control" name="" formControlName="date">
+                <input type="date" class="form-control" name="" formControlName="date" required [class.is-invalid]="!lectureForm.get('date')?.valid && lectureForm.get('date')?.touched">
+                <div class="helper-block small text-danger" *ngIf="!lectureForm.get('date')?.valid && lectureForm.get('date')?.touched">
+                    Data yra privaloma.
+                </div>
 
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Paskaitos aprašymas</label>
-                <textarea class="form-control" name="" formControlName="description"></textarea>
-
+                <textarea class="form-control" name="" formControlName="description" minlength="10" maxlength="225" [class.is-invalid]="!lectureForm.get('description')?.valid && lectureForm.get('description')?.touched"></textarea>
+                <div class="helper-block small text-danger" *ngIf="!lectureForm.get('description')?.valid && lectureForm.get('description')?.touched">
+                    Aprašymas turi būti ne trumpesnis nei 10 ir ne ilgesnis nei 225 simboliai.
+                </div>
             </div>
 
             <div class="mb-3 ">
@@ -37,15 +50,18 @@
                 <input type="file" name="lectureFile" class="d-none" #filePicker (change)="onFileSelected($event)">
 
                 <div class="mb-3">
-                    <div class="d-flex" *ngFor=" let file of fileArray, let i = index;">
-                        <p>{{ file.name }}</p>
+                    <div class="d-flex align-items-start" *ngFor=" let file of fileArray, let i = index;">
+                        <p>{{ file.name }}</p>&nbsp;&nbsp;
                         <button *ngIf="fileArray.length != 0" class="btn btn-sm btn-danger" (click)="dropFile(i)">Pašalinti</button>
+                    </div>
+                    <div class="helper-block small text-danger" *ngIf="fileArray.length > 5">
+                        Galima pridėti ne daugiau 5 failų.
                     </div>
                 </div>
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Pridėti</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!lectureForm.valid || fileArray.length > 5">Pridėti</button>
         </form>
         <app-success [onSuccess]="onSuccess" [successText]="successText"></app-success>
     </div>

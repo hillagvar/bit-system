@@ -22,9 +22,9 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Paskaitos pavadinimas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel required minlength="6" maxlength="64" #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched" [(ngModel)]="name">
+                <input type="text" class="form-control" name="name" value="" ngModel required minlength="6" maxlength="45" #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched" [(ngModel)]="name">
                 <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
-                    Pavadinimas turi būti ne trumpesnis nei 6 ir ne ilgesnis nei 64 simboliai.
+                    Pavadinimas turi būti ne trumpesnis nei 6 ir ne ilgesnis nei 45 simboliai.
                 </div>
             </div>
             <div class="mb-3">

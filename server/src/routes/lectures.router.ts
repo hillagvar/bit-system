@@ -11,7 +11,7 @@ import { viewLecturesMiddleware } from "../middleware/view.lectures.middleware";
 const lecturesRouter = express.Router();
 
 lecturesRouter.get("/:id", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.getLecture);
-lecturesRouter.put("/", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.updateLecture);
+lecturesRouter.put("/:id", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.updateLecture);
 lecturesRouter.patch("/:id", authMiddleware, editMiddleware, ownLectureMiddleware, LecturesController.deleteLecture);
 lecturesRouter.get("/:id/files", authMiddleware, ownLectureMiddleware, viewLecturesMiddleware, FilesController.getFileList); 
 

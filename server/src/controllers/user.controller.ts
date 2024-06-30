@@ -1,7 +1,7 @@
 import { pool } from "../db/connect";
 import { User } from "../models/user";
 
-export class userController {
+export class UserController {
     static async getUser(req: any, res: any) {
 
         const userId = req.params.id;

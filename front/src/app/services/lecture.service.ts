@@ -31,8 +31,8 @@ export class LectureService {
     return this.http.get<Lecture>("http://localhost:2999/lectures/"+lectureId);
    }
 
-  public updateLecture(lecture: Lecture) {
-    return this.http.put("http://localhost:2999/lectures", lecture);
+  public updateLecture(lecture: Lecture, lectureId: number) {
+    return this.http.put("http://localhost:2999/lectures/"+lectureId, lecture);
   }
 
   public deleteLecture(lectureId: number) {

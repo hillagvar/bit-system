@@ -3,12 +3,14 @@ import { Group } from "../models/group";
 
 const ownGroupMiddleware = async (req:any, res:any, next:any) => {
     const sql = "SELECT * FROM groups LEFT JOIN courses ON groups.course_id = courses.id LEFT JOIN users ON courses.lecturer_id = users.id WHERE (users.id = ? AND groups.id =?)";
-    const sql2 = "SELECT * FROM groups WHERE id = ?";
+    const sql2 = "SELECT * FROM groups WHERE id= ?";
     const [result] = await pool.query<Group[]>(sql, [req.user.id, req.params.id]);
     const [result2] = await pool.query<Group[]>(sql2, [req.params.id]);
 
     if (req.user.type == 1 && result2.length == 0) {
+        
         return res.status(401).json({
+            
             "text": "Tokia grupė neegzistuoja"
         }) 
 

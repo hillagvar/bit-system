@@ -55,7 +55,7 @@ export class EditGroupComponent {
 
   public updateGroup(form: NgForm) {
     
-    this.groupService.updateGroup({id:this.id, ...form.form.value}).subscribe({
+    this.groupService.updateGroup({id:this.id, ...form.form.value}, this.id!).subscribe({
       next: (data)=> {
         this.onSuccess = true;
         this.successText = "Grupė atnaujinta sėkmingai!"

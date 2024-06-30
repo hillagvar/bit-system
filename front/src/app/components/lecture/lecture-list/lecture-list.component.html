@@ -42,8 +42,8 @@
                 <ul>
 
                     <li *ngFor="let file of fileList">
-                        <a href="{{ file.url }}">{{ file.name }}</a><button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="deleteFile(file.id!)">Ištrinti</button>&nbsp;
-                        <p *ngIf="authService.isLecturer()">{{ file.hidden == 1 ? " Failas rodomas" : "Failas paslėptas" }}</p>
+                        <a href="{{ file.url }}">{{ file.name }}</a>&nbsp;&nbsp;<button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="deleteFile(file.id!)">Ištrinti</button>&nbsp;
+
                         <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer() && file.hidden == 1" (click)="hideFile(file.id!)">Paslėpti</button>
                         <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer() && file.hidden == 0" (click)="unhideFile(file.id!)">Rodyti</button>
 

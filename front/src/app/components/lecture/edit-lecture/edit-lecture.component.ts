@@ -70,7 +70,7 @@ export class EditLectureComponent {
 
   public updateLecture(form: NgForm) {
     
-    this.lectureService.updateLecture({id:this.id, ...form.form.value}).subscribe({
+    this.lectureService.updateLecture({id:this.id, ...form.form.value}, this.id!).subscribe({
       next: (data)=> {
         this.onSuccess = true;
         this.successText = "Paskaita atnaujinta sėkmingai!"

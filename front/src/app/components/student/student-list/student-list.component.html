@@ -1,1 +1,39 @@
-<p>student-list works!</p>
+<div *ngIf="!isError">
+    <div class="card mt-4">
+        <div class="card-header">Studentų sąrašas</div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nr.</th>
+                        <th>Vardas</th>
+                        <th>Pavardė</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of students; let i = index;">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.surname }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteStudentFromGroup(student.pairId!)">Ištrinti iš grupės</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">Pridėti studentą prie grupės</div>
+        <div class="card-body">
+            <form (ngSubmit)="submitStudent(f)" #f="ngForm">
+                <label for="">Pasirinkti studentą</label>
+                <select class="form-select" name="student" ngModel>
+                    <option *ngFor="let student of allStudents" value="{{ student.id }}">{{ student.name }} {{ student.surname }}</option>
+                </select>
+                <button class="btn btn-primary mt-3">Pridėti</button>
+            </form>
+        </div>
+    </div>
+</div>

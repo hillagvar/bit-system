@@ -6,5 +6,6 @@ export interface User {
     email: string,
     password: string,
     type?: number,
-    token?: string
+    token?: string,
+    pairId?: number
 }

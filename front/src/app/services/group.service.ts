@@ -29,8 +29,8 @@ export class GroupService {
     return this.http.post("http://localhost:2999/groups", group);
   }
 
-    public updateGroup(group: Group) {
-    return this.http.put("http://localhost:2999/groups", group);
+    public updateGroup(group: Group, groupId: number) {
+    return this.http.put("http://localhost:2999/groups/"+groupId, group);
   }
 
    public deleteGroup(groupId: number) {

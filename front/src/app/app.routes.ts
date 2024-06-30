@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { studentGuard } from './guards/student.guard';
 import { lecturerGuard } from './guards/lecturer.guard';
 import { viewGuard } from './guards/view.guard';
+import { StudentListComponent } from './components/student/student-list/student-list.component';
 
 
 export const routes: Routes = [
@@ -53,6 +54,10 @@ export const routes: Routes = [
     }, 
     {
         path: "groups/:id", component: EditGroupComponent,
+        canActivate: [lecturerGuard]
+    }, 
+     {
+        path: "groups/:id/students", component: StudentListComponent,
         canActivate: [lecturerGuard]
     }, 
     {
