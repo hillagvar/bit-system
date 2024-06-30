@@ -41,7 +41,7 @@
             <div id="{{lecture.id!}}" *ngIf="lecture.id == openedlectureId">
                 <ul>
 
-                    <li *ngFor="let file of fileList">
+                    <li *ngFor="let file of fileList" class="mb-2">
                         <a href="{{ file.url }}">{{ file.name }}</a>&nbsp;&nbsp;<button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="deleteFile(file.id!)">Ištrinti</button>&nbsp;
 
                         <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer() && file.hidden == 1" (click)="hideFile(file.id!)">Paslėpti</button>
