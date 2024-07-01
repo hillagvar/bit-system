@@ -8,7 +8,7 @@
                 <label for="" class="col-sm-3 col-form-label text-end">Studento vardas:</label>
                 <div class="col-sm-9">
                     <input class="form-control" formControlName="name" [class.is-invalid]="!studentForm.get('name')?.valid && studentForm.get('name')?.touched">
-                    <div class="helper-block" *ngIf="!studentForm.get('name')?.valid && studentForm.get('name')?.touched">
+                    <div class="helper-block small text-danger" *ngIf="!studentForm.get('name')?.valid && studentForm.get('name')?.touched">
                         Vardas turi būti 3-45 simbolių. Galima naudoti tik raides, tarpą ir brūkšnelį.
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                 <label for="" class="col-sm-3 col-form-label text-end">Studento pavardė:</label>
                 <div class="col-sm-9">
                     <input class="form-control" formControlName="surname" [class.is-invalid]="!studentForm.get('surname')?.valid && studentForm.get('surname')?.touched">
-                    <div class="helper-block" *ngIf="!studentForm.get('surname')?.valid && studentForm.get('surname')?.touched">
+                    <div class="helper-block small text-danger" *ngIf="!studentForm.get('surname')?.valid && studentForm.get('surname')?.touched">
                         Pavardė turi būti 3-45 simbolių. Galima naudoti tik raides, tarpą ir brūkšnelį.
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <label for="" class="col-sm-3 col-form-label text-end">El.pašto adresas:</label>
                 <div class="col-sm-9">
                     <input class="form-control" formControlName="email" [class.is-invalid]="!studentForm.get('email')?.valid && studentForm.get('email')?.touched">
-                    <div class="helper-block" *ngIf="!studentForm.get('email')?.valid && studentForm.get('email')?.touched">
+                    <div class="helper-block small text-danger" *ngIf="!studentForm.get('email')?.valid && studentForm.get('email')?.touched">
                         El.pašto adresas yra privalomas.
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                 <label for="" class="col-sm-3 col-form-label text-end">Slaptažodis:</label>
                 <div class="col-sm-9">
                     <input class="form-control" type="password" formControlName="password" [class.is-invalid]="!studentForm.get('password')?.valid && studentForm.get('password')?.touched">
-                    <div class="helper-block" *ngIf="!studentForm.get('password')?.valid && studentForm.get('password')?.touched">
+                    <div class="helper-block small text-danger" *ngIf="!studentForm.get('password')?.valid && studentForm.get('password')?.touched">
                         Slaptažodis turi būti ne trumpesnis nei 8 simboliai.
                     </div>
                 </div>
