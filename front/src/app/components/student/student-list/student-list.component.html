@@ -1,3 +1,4 @@
+<app-delete-student></app-delete-student>
 <div *ngIf="!isError">
     <div class="card mt-4">
         <div class="card-header">Studentų sąrašas</div>
@@ -17,7 +18,7 @@
                         <td>{{ student.name }}</td>
                         <td>{{ student.surname }}</td>
                         <td>
-                            <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteStudentFromGroup(student.pairId!)">Ištrinti iš grupės</button>
+                            <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="openDeletePopup(student.pairId!)">Ištrinti iš grupės</button>
                         </td>
                     </tr>
                 </tbody>

@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { ErrorService } from '../../../services/error.service';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { DeleteStudentComponent } from '../delete-student/delete-student.component';
+import { DeleteService } from '../../../services/delete.service';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DeleteStudentComponent],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
@@ -22,10 +24,14 @@ export class StudentListComponent {
   public errorText = "";
   public allStudents: User[] = [];
 
-  constructor(private studentService: StudentService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService) {
+  constructor(private studentService: StudentService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService, private deleteService: DeleteService) {
     this.groupId = this.route.snapshot.params['id'];
     this.loadStudents();
     this.loadAllStudents();
+
+    this.deleteService.onStudentDeleteConfirm.subscribe((id)=> {
+      this.deleteStudentFromGroup(id);
+    })
   }
 
   private loadStudents() {
@@ -39,7 +45,7 @@ export class StudentListComponent {
     })
   }
   
-  public deleteStudentFromGroup(pairId: number) {
+  private deleteStudentFromGroup(pairId: number) {
     this.studentService.deleteStudentFromGroup(pairId).subscribe({
       next:  (data) => {
       this.loadStudents();
@@ -67,6 +73,10 @@ export class StudentListComponent {
       }
     })
     
+  }
+
+  public openDeletePopup(id: number) {
+    this.deleteService.onDeleteButtonClick.emit(id);
   }
 
 }

@@ -12,6 +12,7 @@ export class DeleteService {
   public onGroupDeleteConfirm = new EventEmitter<number>();
   public onLectureDeleteConfirm = new EventEmitter<number>();
   public onFileDeleteConfirm = new EventEmitter<number>();
+  public onStudentDeleteConfirm = new EventEmitter<number>();
 
   constructor() { }
 }
