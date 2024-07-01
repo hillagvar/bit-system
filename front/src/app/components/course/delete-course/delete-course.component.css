@@ -1,4 +1,4 @@
-.popup {
+.delete-message {
     display: block;
     position: absolute;
     top: 35%;
@@ -11,5 +11,4 @@
     border: 1px solid #6c757d;
     border-radius: 8px;
     text-align: center;
-
 }

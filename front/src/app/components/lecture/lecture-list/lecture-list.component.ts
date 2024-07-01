@@ -7,11 +7,14 @@ import { ErrorService } from '../../../services/error.service';
 import { AuthService } from '../../../services/auth.service';
 import { lectureFile } from '../../../models/lectureFile';
 import { FileService } from '../../../services/file.service';
+import { DeleteLectureComponent } from '../delete-lecture/delete-lecture.component';
+import { DeleteService } from '../../../services/delete.service';
+import { DeleteFileComponent } from '../delete-file/delete-file.component';
 
 @Component({
   selector: 'app-lecture-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, DeleteLectureComponent, DeleteFileComponent],
   templateUrl: './lecture-list.component.html',
   styleUrl: './lecture-list.component.css'
 })
@@ -47,16 +50,24 @@ export class LectureListComponent {
    
 }
 
-  constructor(private lectureService: LectureService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService, private fileService: FileService) {
+  constructor(private lectureService: LectureService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService, private fileService: FileService, private deleteService: DeleteService) {
     this.groupId = this.route.snapshot.params['id'];
     this.loadLectures();
     this.lectureService.openListEmitter.subscribe((id)=> {
       this.openedlectureId = id;
       this.loadFiles(id)
     });
+
+    this.deleteService.onLectureDeleteConfirm.subscribe((id)=> {
+      this.deleteLecture(id);
+    })
+
+    this.deleteService.onFileDeleteConfirm.subscribe((id)=> {
+      this.deleteFile(id);
+    })
   }
 
-  public deleteLecture(lectureId: number) {
+  private deleteLecture(lectureId: number) {
     this.lectureService.deleteLecture(lectureId).subscribe({
       next: (data)=> {
       this.loadLectures();
@@ -76,7 +87,7 @@ export class LectureListComponent {
     }
   }
 
-  public deleteFile(id: number) {
+  private deleteFile(id: number) {
     this.fileService.deleteFile(id).subscribe(()=> {
       this.loadFiles(this.openedlectureId);
   })
@@ -95,6 +106,16 @@ export class LectureListComponent {
     })
     })
   }
+
+  public openDeletePopup(id: number) {
+    this.deleteService.onDeleteButtonClick.emit(id);
+  }
+
+  public openDeleteFilePopup(id: number) {
+    this.deleteService.onDeleteFileButtonClick.emit(id);
+  }
+
+
 
 
  }

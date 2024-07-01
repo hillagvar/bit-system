@@ -1,3 +1,4 @@
+<app-delete-course></app-delete-course>
 <div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Kursų sąrašas</div>
     <div class="card-body">
@@ -16,7 +17,7 @@
                     <td>
                         <a class="btn btn-sm btn-secondary mb-1" [routerLink]="['/courses', course.id, 'groups']">Žiūrėti grupes</a> &nbsp;
                         <a class="btn btn-sm btn-secondary mb-1" [routerLink]="['/courses', course.id]">Redaguoti</a> &nbsp;
-                        <button class="btn btn-sm btn-danger mb-1" (click)="deleteCourse(course.id!)">Ištrinti</button>
+                        <button class="btn btn-sm btn-danger mb-1" (click)="openDeletePopup(course.id!)">Ištrinti</button>
                     </td>
                 </tr>
             </tbody>

@@ -1,0 +1,9 @@
+<div class="delete-message" *ngIf="deleteButtonClicked">
+    <div class="mt-5">
+        <h6>Ar tikrai norite ištrinti?</h6>
+        <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-danger" (click)="confirmDelete()">Trinti</button>
+            <button class="btn btn-secondary" (click)="closeDeletePopup()">Atšaukti</button>
+        </div>
+    </div>
+</div>

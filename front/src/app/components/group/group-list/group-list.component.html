@@ -1,3 +1,4 @@
+<app-delete-group></app-delete-group>
 <div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Grupių sąrašas</div>
     <div class="card-body">
@@ -23,7 +24,7 @@
                         <a class="btn btn-sm btn-secondary mb-1" [routerLink]="['/groups', group.id, 'lectures']">Žiūrėti paskaitas</a> &nbsp;
                         <a class="btn btn-sm btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/groups', group.id, 'students']">Žiūrėti studentus</a> &nbsp;
                         <a class="btn btn-sm btn-secondary mb-1" *ngIf="authService.isLecturer()" [routerLink]="['/groups', group.id]">Redaguoti</a> &nbsp;
-                        <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="deleteGroup(group.id!)">Ištrinti</button>
+                        <button class="btn btn-sm btn-danger mb-1" *ngIf="authService.isLecturer()" (click)="openDeletePopup(group.id!)">Ištrinti</button>
                     </td>
                 </tr>
             </tbody>

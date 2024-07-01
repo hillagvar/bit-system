@@ -1,3 +1,5 @@
+<app-delete-lecture></app-delete-lecture>
+<app-delete-file></app-delete-file>
 <div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Paskaitų sąrašas</div>
     <div class="card-body">
@@ -35,14 +37,14 @@
             <div class="col-md-5 mb-4">
                 <button class="btn btn-sm btn-secondary mx-auto" (click)="openFileList(lecture.id!)">Žiūrėti failus</button> &nbsp;
                 <a class="btn-sm btn btn-secondary mx-auto" *ngIf="authService.isLecturer()" [routerLink]="['/lectures', lecture.id]">Redaguoti</a> &nbsp;
-                <button class="btn btn-sm btn-danger mx-auto" *ngIf="authService.isLecturer()" (click)="deleteLecture(lecture.id!)">Ištrinti</button>
+                <button class="btn btn-sm btn-danger mx-auto" *ngIf="authService.isLecturer()" (click)="openDeletePopup(lecture.id!)">Ištrinti</button>
             </div>
             <hr>
             <div id="{{lecture.id!}}" *ngIf="lecture.id == openedlectureId">
                 <ul>
 
                     <li *ngFor="let file of fileList" class="mb-2">
-                        <a href="{{ file.url }}">{{ file.name }}</a>&nbsp;&nbsp;<button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="deleteFile(file.id!)">Ištrinti</button>&nbsp;
+                        <a href="{{ file.url }}">{{ file.name }}</a>&nbsp;&nbsp;<button class="btn btn-sm btn-danger" *ngIf="authService.isLecturer()" (click)="openDeleteFilePopup(file.id!)">Ištrinti</button>&nbsp;
 
                         <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer() && file.hidden == 1" (click)="hideFile(file.id!)">Paslėpti</button>
                         <button class="btn btn-sm btn-secondary" *ngIf="authService.isLecturer() && file.hidden == 0" (click)="unhideFile(file.id!)">Rodyti</button>

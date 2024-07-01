@@ -32,7 +32,7 @@ export class GroupController {
 
 
     static async getGroupsByLecturer(req: any, res: any) {
-        const sql = "SELECT groups.name, groups.id FROM groups LEFT JOIN courses on groups.course_id = courses.id LEFT JOIN users on courses.lecturer_id = users.id WHERE (users.id =? AND groups.deleted IS NULL)";
+        const sql = "SELECT groups.name, groups.id FROM groups LEFT JOIN courses on groups.course_id = courses.id LEFT JOIN users on courses.lecturer_id = users.id WHERE (users.id =? AND groups.deleted IS NULL AND courses.deleted IS NULL)";
         const [result] = await pool.query<Group[]>(sql, [req.user.id]);
 
         res.json(result);

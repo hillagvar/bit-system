@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { ErrorService } from '../../../services/error.service';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../models/user';
+import { DeleteService } from '../../../services/delete.service';
+import { DeleteGroupComponent } from '../delete-group/delete-group.component';
 
 @Component({
   selector: 'app-group-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, DeleteGroupComponent],
   templateUrl: './group-list.component.html',
   styleUrl: './group-list.component.css'
 })
@@ -50,7 +52,7 @@ export class GroupListComponent {
     
   }
 
-  constructor(private groupService: GroupService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService) {
+  constructor(private groupService: GroupService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService, private deleteService: DeleteService) {
     this.user = this.authService.user;
 
     if (this.user != null && this.user.type == 1) {
@@ -63,9 +65,13 @@ export class GroupListComponent {
     this.loadStudentGroups();
     }
 
+    this.deleteService.onGroupDeleteConfirm.subscribe((id)=> {
+      this.deleteGroup(id);
+    })
+
   }
 
-  public deleteGroup(groupId: number) {
+  private deleteGroup(groupId: number) {
     this.groupService.deleteGroup(groupId).subscribe({
       next: (data) => {
          this.loadGroups();
@@ -74,6 +80,10 @@ export class GroupListComponent {
         this.errorService.errorEmitter.emit(error.error.text);
       }  
     })
+  }
+
+  public openDeletePopup(id: number) {
+    this.deleteService.onDeleteButtonClick.emit(id);
   }
 
 }

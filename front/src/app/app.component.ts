@@ -8,7 +8,6 @@ import { ErrorBlockComponent } from './components/helper/error-block/error-block
 import { LecturerMenuComponent } from './components/lecturer-menu/lecturer-menu.component';
 import { AuthService } from './services/auth.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { DeleteComponent } from './components/helper/delete/delete.component';
 
 @Component({
   selector: 'app-root',
