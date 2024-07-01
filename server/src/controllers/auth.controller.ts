@@ -112,10 +112,6 @@ export class AuthController {
             })
         }
 
-        const sql2 = "INSERT INTO users (name, surname, email, password, type) VALUES (?, ?, ?, ?, ?)";
-        const [result2, fields] = await pool.query(sql2, [name, surname, email, password, type]);
-        const insertId = (result2 as any).insertId;
-
         let groupDuplicates : number[] = [];
 
         for (let i = 0; i < groupFields.length; i++) {
@@ -129,10 +125,14 @@ export class AuthController {
         }
 
         if (groupDuplicates.length != 0) {
-            return res.status(500).json({
+            return res.status(400).json({
                 "text": "Negalima pridėti du kartus į tą pačią grupę."
             });
         }
+
+        const sql2 = "INSERT INTO users (name, surname, email, password, type) VALUES (?, ?, ?, ?, ?)";
+        const [result2, fields] = await pool.query(sql2, [name, surname, email, password, type]);
+        const insertId = (result2 as any).insertId;
 
         groupFields.forEach( async (groupId: any)=> {
             const sql3="INSERT INTO users_groups (user_id, group_id) VALUES (?,?)";
