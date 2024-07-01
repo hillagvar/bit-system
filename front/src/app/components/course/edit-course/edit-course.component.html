@@ -1,4 +1,4 @@
-<div class="card mt-4">
+<div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Redaguoti kursą</div>
     <div class="card-body">
         <form (ngSubmit)="updateCourse(f)" #f="ngForm">

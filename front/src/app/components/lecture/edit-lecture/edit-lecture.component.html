@@ -1,4 +1,4 @@
-<div class="card mt-4">
+<div class="card mt-4" *ngIf="!isError">
     <div class="card-header">Redaguoti paskaitą</div>
     <div class="card-body">
         <form (ngSubmit)="updateLecture(f)" #f="ngForm">

@@ -6,6 +6,7 @@ import { Group } from '../../../models/group';
 import { AuthService } from '../../../services/auth.service';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { Route, Router } from '@angular/router';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-add-student',
@@ -22,7 +23,7 @@ export class AddStudentComponent {
   public studentForm: FormGroup;
   public groups: Group[] = [];
 
-  constructor(private authService: AuthService, private groupService: GroupService, private router: Router) {
+  constructor(private authService: AuthService, private groupService: GroupService, private router: Router, private errorService: ErrorService) {
     this.studentForm = new FormGroup({
     "name": new FormControl(null, [Validators.required, Validators.minLength(3)]),
     "surname": new FormControl(null, [Validators.required, Validators.minLength(3)]),
@@ -66,7 +67,7 @@ export class AddStudentComponent {
       }, 2000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     })
   }

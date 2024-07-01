@@ -10,6 +10,7 @@ import { Lecture } from '../../../models/lecture';
 import { LectureService } from '../../../services/lecture.service';
 import { SuccessComponent } from '../../helper/success/success.component';
 import { FileService } from '../../../services/file.service';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-add-file',
@@ -28,7 +29,7 @@ export class AddFileComponent {
   public fileArray : File[] = [];
 
 
-  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private lectureService: LectureService, private fileService: FileService) {
+  constructor (private groupService: GroupService, private courseService: CourseService, private router: Router, private lectureService: LectureService, private fileService: FileService, private errorService: ErrorService) {
     this.loadCourses();
   }
 
@@ -72,7 +73,7 @@ export class AddFileComponent {
       }, 4000)
       },
       error: (error) => {
-        console.log('error');
+        this.errorService.errorEmitter.emit(error.error.text);
       }
     })
 

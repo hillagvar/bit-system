@@ -32,6 +32,8 @@ export class EditLectureComponent {
   public onSuccess = false;
   public successText = "";
 
+  public isError = false;
+
    private loadCourses() {
     this.courseService.getCourses().subscribe((data)=> {
       this.courses = data;
@@ -63,6 +65,7 @@ export class EditLectureComponent {
       },
       error: (error) => {
         this.errorService.errorEmitter.emit(error.error.text);
+        this.isError = true;
       }
     });
 

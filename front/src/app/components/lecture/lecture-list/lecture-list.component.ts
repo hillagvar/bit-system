@@ -35,20 +35,35 @@ export class LectureListComponent {
     });   
   }
 
+  private loadFiles(lectureId: number) {
+    this.fileService.getFileList(lectureId).subscribe({
+      next: (data)=> {
+        this.fileList = data;
+      },
+      error: (error) => {
+        this.errorService.errorEmitter.emit(error.error.text);
+      }
+    })
+   
+}
+
   constructor(private lectureService: LectureService, private route: ActivatedRoute, private errorService: ErrorService, public authService: AuthService, private fileService: FileService) {
     this.groupId = this.route.snapshot.params['id'];
     this.loadLectures();
     this.lectureService.openListEmitter.subscribe((id)=> {
       this.openedlectureId = id;
-      this.fileService.getFileList(id).subscribe((data)=> {
-        this.fileList = data;
-      })
+      this.loadFiles(id)
     });
   }
 
   public deleteLecture(lectureId: number) {
-    this.lectureService.deleteLecture(lectureId).subscribe(()=> {
+    this.lectureService.deleteLecture(lectureId).subscribe({
+      next: (data)=> {
       this.loadLectures();
+    },
+      error: (error) => {
+        this.errorService.errorEmitter.emit(error.error.text);
+      }
     });
   }
 
@@ -63,17 +78,13 @@ export class LectureListComponent {
 
   public deleteFile(id: number) {
     this.fileService.deleteFile(id).subscribe(()=> {
-      this.fileService.getFileList(this.openedlectureId).subscribe((data)=> {
-        this.fileList = data;
-    })
+      this.loadFiles(this.openedlectureId);
   })
 }
 
   public hideFile(id: number) {
     this.fileService.hideFile(id).subscribe(()=> {
-      this.fileService.getFileList(this.openedlectureId).subscribe((data)=> {
-        this.fileList = data;
-    })
+      this.loadFiles(this.openedlectureId);
     })
   }
 

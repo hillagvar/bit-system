@@ -66,11 +66,15 @@ export class GroupListComponent {
   }
 
   public deleteGroup(groupId: number) {
-    this.groupService.deleteGroup(groupId).subscribe(()=> {
-      this.loadGroups();
-      
+    this.groupService.deleteGroup(groupId).subscribe({
+      next: (data) => {
+         this.loadGroups();
+      },
+      error: (error) => {
+        this.errorService.errorEmitter.emit(error.error.text);
+      }  
     })
-
   }
 
 }
+

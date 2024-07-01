@@ -29,6 +29,8 @@ export class EditGroupComponent {
   public onSuccess = false;
   public successText = "";
 
+  public isError = false;
+
    private loadCourses() {
     this.courseService.getCourses().subscribe((data)=> {
       this.courses = data;
@@ -48,6 +50,7 @@ export class EditGroupComponent {
       },
       error: (error) => {
         this.errorService.errorEmitter.emit(error.error.text);
+        this.isError = true;
       }
     });
 

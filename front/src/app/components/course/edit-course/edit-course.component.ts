@@ -21,6 +21,8 @@ export class EditCourseComponent {
   public onSuccess = false;
   public successText = "";
 
+  public isError = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService, private errorService: ErrorService) {
 
     this.courseService.getCourse(this.route.snapshot.params["id"]).subscribe({
@@ -30,6 +32,7 @@ export class EditCourseComponent {
       },
       error: (error) => {
         this.errorService.errorEmitter.emit(error.error.text);
+        this.isError = true;
       }
     });
 

@@ -26,7 +26,7 @@ export class AuthController {
 
         if (req.body.name == "" || req.body.surname == "" || req.body.email == "" || req.body.password == "") {
             return res.status(400).json({
-                "text": "Įvyko klaida."
+                "text": "Įvyko klaida"
             })
         }
 
@@ -43,6 +43,7 @@ export class AuthController {
             });
         }  
     }
+
 
 
     static async login(req: any, res: any) {
@@ -98,6 +99,7 @@ export class AuthController {
         const email = req.body.email;
         const type = 2;
         let password: string = req.body.password;
+        const groupFields = req.body.groupFields;
 
          password = await bcrypt.hash(password, 12);
 
@@ -114,7 +116,25 @@ export class AuthController {
         const [result2, fields] = await pool.query(sql2, [name, surname, email, password, type]);
         const insertId = (result2 as any).insertId;
 
-        req.body.groupFields.forEach( async (groupId: any)=> {
+        let groupDuplicates : number[] = [];
+
+        for (let i = 0; i < groupFields.length; i++) {
+            for (let j = i + 1; j < groupFields.length; j++) {
+                if (groupFields[i] == groupFields[j]) {
+                    if (groupFields.includes(groupFields[i])) {
+                        groupDuplicates.push(groupFields[i]);
+                    }
+                }
+            }
+        }
+
+        if (groupDuplicates.length != 0) {
+            return res.status(500).json({
+                "text": "Negalima pridėti du kartus į tą pačią grupę."
+            });
+        }
+
+        groupFields.forEach( async (groupId: any)=> {
             const sql3="INSERT INTO users_groups (user_id, group_id) VALUES (?,?)";
             await pool.query(sql3, [insertId, groupId]);
         });
