@@ -24,9 +24,9 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Paskaitos pavadinimas</label>
-                <input type="text" class="form-control" formControlName="name" required minlength="3" [class.is-invalid]="!lectureForm.get('name')?.valid && lectureForm.get('name')?.touched">
+                <input type="text" class="form-control" formControlName="name" required minlength="6" maxlength="45" [class.is-invalid]="!lectureForm.get('name')?.valid && lectureForm.get('name')?.touched">
                 <div class="helper-block small text-danger" *ngIf="!lectureForm.get('name')?.valid && lectureForm.get('name')?.touched">
-                    Pavadinimas yra privalomas.
+                    Pavadinimas turi būti ne trumpesnis nei 6 ir ne ilgesnis nei 45 simboliai.
                 </div>
             </div>
             <div class="mb-3">

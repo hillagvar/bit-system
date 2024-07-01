@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { GroupService } from '../../../services/group.service';
 import { CommonModule } from '@angular/common';
 import { Group } from '../../../models/group';
@@ -25,10 +25,10 @@ export class AddStudentComponent {
 
   constructor(private authService: AuthService, private groupService: GroupService, private router: Router, private errorService: ErrorService) {
     this.studentForm = new FormGroup({
-    "name": new FormControl(null, [Validators.required, Validators.minLength(3)]),
-    "surname": new FormControl(null, [Validators.required, Validators.minLength(3)]),
+    "name": new FormControl(null, [Validators.required, this.validateNames]),
+    "surname": new FormControl(null, [Validators.required, this.validateNames]),
     "email": new FormControl(null, [Validators.email, Validators.required]),
-    "password": new FormControl(null, [Validators.required]),
+    "password": new FormControl(null, [Validators.required, Validators.minLength(8)]),
     "groupFields": new FormArray([
       new FormControl(null, [Validators.required])
     ]),
@@ -37,6 +37,15 @@ export class AddStudentComponent {
     this.loadGroups();
   };
 
+  validateNames(control: FormControl) : ValidationErrors | null {
+    let value = control.value;
+    let pattern = /^[A-Za-zĄČĘĖĮŠŲŪŽąčęėįšųūž\- ]{3,45}$/;
+    if (pattern.test(value)) {
+      return null;
+    }
+    return {error: "Klaida"};
+  }
+ 
   private loadGroups() {
     this.groupService.getGroupsByLecturer().subscribe((groups)=> {
       this.groups = groups;

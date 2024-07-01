@@ -13,9 +13,9 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Grupės pavadinimas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel minlength="6" maxlength="64" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
+                <input type="text" class="form-control" name="name" value="" ngModel minlength="6" maxlength="45" required #inputName="ngModel" [class.is-invalid]="!inputName.valid && inputName.touched">
                 <div class="helper-block small text-danger" *ngIf="!inputName.valid && inputName.touched">
-                    Pavadinimas yra privalomas.
+                    Pavadinimas yra privalomas (6-45 simboliai).
                 </div>
             </div>
             <div class="mb-3">
