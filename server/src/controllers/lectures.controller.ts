@@ -4,11 +4,18 @@ import { Lecture } from "../models/lecture";
 export class LecturesController {
 
     static async addLecture(req: any, res: any) {
+
         const name = req.body.name;
         const date = req.body.date;
         const description = req.body.description;
         const groupId = Number(req.body.groupId);
         const files = req.files;
+
+         if (name == "") {
+            return res.status(400).json({
+                "text": "Neįvestas pavadinimas"
+            });
+        }
 
         const sql = "INSERT INTO lectures (name, date, description, group_id) VALUES (?,?,?,?)";
         const [result, fields] = await pool.query(sql, [name, date, description, groupId]);
@@ -24,20 +31,8 @@ export class LecturesController {
             "status": "Ok"
         })
 
-        // try {
-        //     await pool.query(sql, [req.body.name, req.body.date, req.body.description, req.body.group]);
-            
-        //     res.json({
-        //         "success" : true
-        //     });
-        // } catch(error) {
-        //     res.status(500).json({
-        //         "text": "Įvyko pridėjimo klaida"
-        //     });
-        // }
-
-       
     }
+
 
     static async getLecture(req: any, res: any) {
         const sql = "SELECT lectures.id as id, lectures.name as name, date, description, group_id as groupId, course_id as courseId FROM lectures LEFT JOIN groups ON lectures.group_id = groups.id LEFT JOIN courses ON groups.course_id = courses.id WHERE lectures.id=? AND lectures.deleted IS NULL";

@@ -4,10 +4,15 @@ import { Group } from "../models/group";
 
 export class CoursesController {
     static async getCourses(req: any, res: any) {
+        try {
         const sql = "SELECT courses.name as name, courses.id, deleted FROM courses LEFT JOIN users on users.id = courses.lecturer_id WHERE users.id =? AND deleted IS NULL";
         const [result] = await pool.query<Course[]>(sql, [req.user.id]);
-
         res.json(result);
+        } catch(error) {
+            res.status(500).json({
+                "text": "Įvyko klaida"
+            });
+        }
     }
 
     static async getCourse(req: any, res: any) {
