@@ -29,10 +29,20 @@ export class StudentController {
     }
 
     static async addStudentToGroup(req: any, res: any) {
-        const sql = "INSERT INTO users_groups (user_id, group_id) VALUES (?,?)";
+
+        const sql1 = "SELECT * FROM users_groups WHERE (user_id =? AND group_id =?)";
+        const [result1] = await pool.query<any>(sql1, [req.body.student, req.params.id]);
+        
+        if (result1.length != 0) {
+            return res.status(400).json({
+                "text": "Toks studentas grupėje jau yra"
+            });
+        }
+
+        const sql2 = "INSERT INTO users_groups (user_id, group_id) VALUES (?,?)";
 
         try {
-            const [result] = await pool.query(sql, [req.body.student, req.params.id]);
+            const [result2] = await pool.query(sql2, [req.body.student, req.params.id]);
             res.json({
                 "success" : true
             });

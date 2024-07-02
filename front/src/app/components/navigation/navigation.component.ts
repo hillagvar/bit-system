@@ -14,6 +14,8 @@ export class NavigationComponent {
 
   public isLoggedIn = false;
 
+  public logo = "http://localhost:2999/files/bit-logo-black.svg";
+
   constructor (public authService: AuthService, private router: Router) {
     if (authService.isLoggedIn()) {
       this.isLoggedIn = true;
@@ -31,5 +33,6 @@ export class NavigationComponent {
     this.isLoggedIn = false;
     this.router.navigate(["/"]);
   }
+
 
 }
