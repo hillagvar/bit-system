@@ -41,6 +41,7 @@ export class StudentListComponent {
     },
       error: (error) => {
          this.errorService.errorEmitter.emit(error.error.text);
+         this.isError = true;
       }
     })
   }
